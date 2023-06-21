@@ -150,7 +150,7 @@ function Chat(props) {
             for (let i = 0; i < suggestionBtns.length; i++) {
                 suggestionBtns[i].addEventListener('click', () => {
                     handleSendMessage({
-                        author: "chatbot",
+                        author: "user",
                         text: suggestionBtns[i].innerText
                     });
                 });
@@ -224,7 +224,6 @@ function Chat(props) {
         setShowConversations(true);
         // TO DO: INTEGRATE WITH BACKEND
     }
-
 
     return (
         <Row className="justify-between h-full">
