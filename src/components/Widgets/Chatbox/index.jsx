@@ -32,12 +32,12 @@ export default function Chatbox(props) {
                             onSendMessage={props.onSendMessage}
                             messages={props.messages}
                             ref={messagesList}
+                            onRegenerate={props.onRegenerate}
                         />
                         : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} />
                 }
             </Col>
             <Col>
-                {props.onRegenerate && <Actions onRegenerate={props.onRegenerate} />}
                 <InputMessage
                     placeholder={props.placeholder}
                     onSendMessage={props.onSendMessage}

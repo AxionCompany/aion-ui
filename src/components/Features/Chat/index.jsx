@@ -23,6 +23,7 @@ const messages = [
     { "author": "user", "text": text2 },
     { "author": "chatbot", "text": text1 },
     { "author": "user", "text": text2 },
+    { "author": "chatbot", "text": text1 },
 ];
 
 const _bots = [
@@ -112,8 +113,19 @@ function Chat(props) {
     const [bots, setBots] = createSignal(_bots);
     const [showConversations, setShowConversations] = createSignal(true);
     const [showDetails, setShowDetails] = createSignal(false);
+    const [regenerateCount, setRegenerateCount] = createSignal(0);
+    const [showRegenerate, setShowRegenerate] = createSignal(true);
 
     const updateConversations = (message, removeBotTyping = false) => {
+        if (message.author === "user") {
+            if (message.type) {
+                delete(message.type)
+            } else {
+                setShowRegenerate(true)
+                setRegenerateCount(0)
+            }
+        }
+
         const newConversations = [...conversations()]
         let messages = newConversations[selectedConversation()].messages;
         if (removeBotTyping) {
@@ -130,6 +142,7 @@ function Chat(props) {
 
         // Adding message
         updateConversations(message);
+        if (message.type) delete(message.type)
 
         if (message.author === "user") {
             // Adding "bot typing" to conversation while waiting for response
@@ -225,6 +238,22 @@ function Chat(props) {
         // TO DO: INTEGRATE WITH BACKEND
     }
 
+    const handleRegenerateAnswer = () => {
+        if (regenerateCount() < 3) {
+            setRegenerateCount(regenerateCount() + 1)
+            conversations()?.[selectedConversation()]?.messages.pop()
+            const lastUserMessage = conversations()?.[selectedConversation()]?.messages.pop()
+            lastUserMessage.type = "regenerate"
+            handleSendMessage(lastUserMessage)
+        } else {
+            setRegenerateCount(0)
+            setShowRegenerate(false)
+            const lastBotMessage = conversations()?.[selectedConversation()]?.messages.pop()
+            lastBotMessage.text = "Parece que não fui capaz de responder sua última mensagem de forma satisfatória. Por favor, tente reescrevê-la de forma diferente ou adicionar mais detalhes."
+            lastBotMessage.type = "regenerate"
+            updateConversations(lastBotMessage)
+        }
+    }
 
     return (
         <Row className="justify-between h-full">
@@ -246,7 +275,7 @@ function Chat(props) {
                     onSelectBot={handleSelectBot}
                     bots={bots()}
                     messages={conversations()?.[selectedConversation()]?.messages}
-                    onRegenerate={() => { console.log('Clicked Regenerate Button') }}
+                    onRegenerate={showRegenerate() && handleRegenerateAnswer}
                     placeholder={placeholder}
                     onSendMessage={handleSendMessage}
                     onDeleteConversation={handleDeleteConversation}
