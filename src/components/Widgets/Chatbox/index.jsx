@@ -1,13 +1,9 @@
 import InputMessage from './InputMessage';
-import { Col, Row } from '../../Base/Grid';
+import { Col } from '../../Base/Grid';
 import MessagesList from './MessagesList';
 import Configuration from './Configuration';
 import BotsList from './Bots';
 import ConversationDetails from './ConversationDetails';
-
-import Actions from './Actions';
-
-import { createEffect } from 'solid-js';
 
 export default function Chatbox(props) {
     let messagesList;

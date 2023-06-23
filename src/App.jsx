@@ -1,8 +1,8 @@
 import ChatPage from './pages/chat';
 
-function App() {
+function App(props) {
   return (
-    <ChatPage />
+    <ChatPage {...props}/>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Col, Row } from '../../Base/Grid';
+import { Row } from '../../Base/Grid';
 import Button from '../../Base/Button';
 
 export default function Actions(props) {
