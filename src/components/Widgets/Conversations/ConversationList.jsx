@@ -1,11 +1,21 @@
 import { Col } from "../../Base/Grid/index.jsx";
 import ConversationCard from "./ConversationCard.jsx";
+import { createEffect } from "solid-js";
 
 export default function ConversationList(props) {
+    const todayConversations = props.conversations.todayConversations
+    const weekConversations = props.conversations.weekConversations
+    const oldConversations = props.conversations.oldConversations
+
+    createEffect(() => {
+        console.log(todayConversations)
+        console.log(weekConversations)
+        console.log(oldConversations)
+    })
 
     return (
         <Col className="aion-overflow-y-scroll md:aion-px-6 aion-overflow-x-hidden">
-            {props?.conversations?.map((conversation, index) => {
+            {todayConversations?.map((conversation, index) => {
                 return(
                     <>
                         <ConversationCard
