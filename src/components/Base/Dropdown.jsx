@@ -2,9 +2,9 @@
 export default function Dropdown(props) {
 
     return (
-        <div class="dropdown dropdown-bottom dropdown-end z-50">
+        <div class="aion-dropdown aion-dropdown-bottom aion-dropdown-end aion-z-40">
             {props.children}
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <ul tabindex="0" class="aion-dropdown-content aion-menu aion-p-2 aion-shadow aion-bg-base-100 aion-rounded-box aion-w-52">
                 {props?.options?.map((option, index) => (
                     <li onClick={()=>props.onSelect(option)} key={index}>
                         <span>{option[props.attr || "name"]}</span>

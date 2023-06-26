@@ -1,5 +1,5 @@
-import Chat from '../components/Features/Chat';
-import Layout from '../layout';
+import Chat from '../components/Features/Chat/index.jsx';
+import Layout from '../layout/index.jsx';
 
 
 export default function (props) {

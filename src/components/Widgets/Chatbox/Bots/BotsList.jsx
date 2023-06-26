@@ -1,6 +1,6 @@
 import { createEffect } from "solid-js";
-import BotCard from "./BotCard";
-import { Col } from "../../../Base/Grid";
+import BotCard from "./BotCard.jsx";
+import { Col } from "../../../Base/Grid/index.jsx";
 
 export default function BotsList(props) {
 
@@ -14,7 +14,7 @@ export default function BotsList(props) {
     })
 
     return (
-        <Col className="overflow-y-scroll px-6">
+        <Col className="aion-w-full aion-overflow-y-scroll aion-px-6 aion-items-center aion-justify-center aion-pt-12">
             {props?.bots?.map((bot, index) => (
                 <BotCard
                     key={index}

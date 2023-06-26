@@ -1,4 +1,4 @@
-import ChatPage from './pages/chat';
+import ChatPage from './pages/chat.jsx';
 
 function App(props) {
   return (

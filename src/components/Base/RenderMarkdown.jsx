@@ -1,4 +1,4 @@
-import RenderHtml from "./RenderHtml";
+import RenderHtml from "./RenderHtml.jsx";
 import showdown  from 'showdown';
 
 const converter = new showdown.Converter({tables: true, simpleLineBreaks:true})

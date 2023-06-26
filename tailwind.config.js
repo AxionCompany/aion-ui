@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  prefix: "aion-",
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -15,8 +16,6 @@ module.exports = {
     require("daisyui")
   ],
   daisyui: {
-    themes: [
-      'lofi'
-    ],
+    themes: true
   },
 }

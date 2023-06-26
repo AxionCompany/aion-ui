@@ -1,4 +1,5 @@
 import { createEffect, createSignal, onCleanup } from 'solid-js';
+import './index.css';
 
 export default function TextArea(props) {
 
@@ -26,7 +27,8 @@ export default function TextArea(props) {
         <div
             ref={inputRef}
             onFocus={() => { setIsFocused(true); inputRef.focus() }}
-            className={`w-full overflow-y-scroll py-3 px-6 max-h-[200px] ${props.className} ${(!props.value) ? 'text-gray-400' : 'text-gray-800'}`}
+            onClick={() => { setIsFocused(true); inputRef.focus() }}
+            className={`aion-w-full aion-overflow-y-scroll aion-py-3 aion-px-6 aion-max-h-[200px] ${props.className} ${(!props.value) ? 'aion-text-gray-400' : 'aion-text-base-content'}`}
             contenteditable={true}
             onInput={handleChange}
             onFocusOut={() => { setIsFocused(false) }}

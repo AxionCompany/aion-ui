@@ -1,14 +1,14 @@
-import Button from './Button';
-import { Row } from './Grid';
+import Button from './Button.jsx';
+import { Row } from './Grid/index.jsx';
 export default function Modal(props) {
     return (
-        <dialog id={props.id} className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box">
+        <dialog id={props.id} className="aion-modal aion-modal-bottom aion-sm:modal-middle">
+            <form method="dialog" className="aion-modal-box">
                 <h3 className="font-bold text-lg">{props.title}</h3>
-                <p className="py-4">{props.content}</p>
-                <Row className="modal-action justify-between">
-                    <Button className="btn-outline" onClick={props?.onCancel}>{props.closeLabel || "Fechar"}</Button>
-                    <Button className="btn-primary" onClick={props.onConfirm}>{props.confirmLabel || "Confirmar"}</Button>
+                <p className="aion-py-4">{props.content}</p>
+                <Row className="aion-modal-action aion-justify-between">
+                    <Button className="aion-btn-outline" onClick={props?.onCancel}>{props.closeLabel || "Fechar"}</Button>
+                    <Button className="aion-btn-primary" onClick={props.onConfirm}>{props.confirmLabel || "Confirmar"}</Button>
                 </Row>
             </form>
         </dialog>

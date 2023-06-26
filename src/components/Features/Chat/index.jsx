@@ -1,91 +1,117 @@
-import Chatbox from '../../Widgets/Chatbox';
-import Conversations from '../../Widgets/Conversations';
-import { Row, Col } from '../../Base/Grid';
-import { createSignal } from 'solid-js';
+import Chatbox from '../../Widgets/Chatbox/index.jsx';
+import Conversations from '../../Widgets/Conversations/index.jsx';
+import { Row } from '../../Base/Grid/index.jsx';
+import { createSignal, createEffect } from 'solid-js';
 
 const isMobile = window.innerWidth < 768;
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const _availableConfig = [
-    {
-        id: 'show_conversations',
-        name: 'Mostrar Conversas',
-    },
-    {
-        id: 'hide_conversations',
-        name: 'Esconder Conversas',
-    },
-    {
-        id: 'new_conversation',
-        name: 'Nova Conversa',
-    },
-    {
-        id: 'conversation_details',
-        name: 'Dados da Conversa',
-    },
-    {
-        id: 'delete_conversation',
-        name: 'Apagar Conversa',
-    },
-];
-
 function Chat(props) {
+
+    let messagesList;
 
     const availableConfig = props.availableConfig || _availableConfig;
     const defaultTitle = props.defaultTitle || "Chat";
     const defaultDescription = props.defaultDescription || "Chat";
     const placeholder = props.placeholder || "Digite sua mensagem aqui...";
     const botTypingCaption = props.botTypingCaption || "Digitando...";
+    const createConversationLabel = props.createConversationLabel || "Nova conversa";
+    const allowConversations = props.allowConversations || false;
 
     const [selectedConversation, setSelectedConversation] = createSignal(0);
     const [conversations, setConversations] = createSignal(props.conversations);
     const [bots, setBots] = createSignal(props.bots);
     const [showConversations, setShowConversations] = createSignal(true);
     const [showDetails, setShowDetails] = createSignal(false);
+    const [regenerateCount, setRegenerateCount] = createSignal(0);
+    const [showRegenerate, setShowRegenerate] = createSignal(true);
 
-    const updateConversations = (message, removeBotTyping = false) => {
+    createEffect(() => {
+        const todayConversations = []
+        const weekConversations = []
+        const oldConversations = []
+        const today = new Date()
+
+        conversations().forEach(conversation => {
+            const difference = today - new Date(conversation.updatedAt)
+            if (difference < 86400000) {
+                todayConversations.push(conversation)
+            } else if (difference < (86400000 * 7)) {
+                weekConversations.push(conversation)
+            } else {
+                oldConversations.push(conversation)
+            }
+        });
+    });
+
+    createEffect(() => {
+        if (selectedConversation()) {
+            setTimeout(() => messagesList.scrollTo({
+                top: messagesList.scrollHeight,
+                behavior: 'smooth'
+            }), 1)
+        }
+    });
+
+    const updateConversations = (message, removeBotTyping = false, stream = false) => {
+
+        if (message.author === "user") {
+            if (message.type) {
+                delete (message.type)
+            } else {
+                setShowRegenerate(true)
+                setRegenerateCount(0)
+            }
+        }
+
         const newConversations = [...conversations()]
         let messages = newConversations[selectedConversation()].messages;
         if (removeBotTyping) {
             messages = messages.filter(message => message.text !== botTypingCaption);
         }
+        if (stream && messages?.[messages.length - 1]?.author === "chatbot") {
+            messages[messages.length - 1].text = (messages?.[messages.length - 1]?.text || '') + message.text;
+        } else {
+            messages = [...messages, message];
+        }
         newConversations[selectedConversation()] = {
             ...newConversations[selectedConversation()],
-            messages: [...messages, message]
+            messages
         }
         setConversations(newConversations);
+
+        // scroll to bottom animated
+        setTimeout(() => messagesList.scrollTo({
+            top: messagesList.scrollHeight,
+        }), 100);
+
     }
+
 
     const handleSendMessage = async (message) => {
 
         // Adding message
         updateConversations(message);
+        if (message.type) delete (message.type)
 
         if (message.author === "user") {
             // Adding "bot typing" to conversation while waiting for response
             updateConversations({ author: "chatbot", text: botTypingCaption });
 
-            let response;
-        
             // Calling onSendMessage callback if provided
             if (props.onSendMessage) {
-                response = await props.onSendMessage(
-                    message,
-                    { conversation: conversations[selectedConversation()] }
-                );
-            } else {
-                await sleep(3000) // simulate bot typing
-                response = "Olá, eu sou o chatbot";
-            }
+                props
+                    .onSendMessage(
+                        { message, conversation: conversations[selectedConversation()] },
+                        (text) => updateConversations({ author: 'chatbot', text }, true, true)
+                    )
+                    .then((text) => text && updateConversations({ author: 'chatbot', text }, true, false))
+                    .catch((error) => {
+                        console.log(error);
+                    })
 
-            // Adding bot response to conversation, removing "bot typing"
-            updateConversations({ author: "chatbot", text: response }, true)
+            }
         }
 
-        // adding event listeners to suggestion buttons
         setTimeout(() => {
             const suggestionBtns = document.getElementsByClassName('suggestion-btn');
             for (let i = 0; i < suggestionBtns.length; i++) {
@@ -97,6 +123,8 @@ function Chat(props) {
                 });
             }
         }, 100);
+
+
     }
 
     const handleCreateConversation = () => {
@@ -126,7 +154,7 @@ function Chat(props) {
         }
         if (bot.suggestions) {
             bot.suggestions.forEach(suggestion => {
-                botMessage += `<button class="btn btn-outline m-2 shadow-md suggestion-btn">${suggestion}</button>`;
+                botMessage += `<button class="aion-btn aion-btn-outline aion-m-2 aion-shadow-md suggestion-btn">${suggestion}</button>`;
             })
         }
 
@@ -145,9 +173,9 @@ function Chat(props) {
     }
 
     const handleSelectConfig = (config) => {
+        console.log(config)
         const configMap = {
-            'show_conversations': () => setShowConversations(true),
-            'hide_conversations': () => setShowConversations(false),
+            'toggle_conversations': () => setShowConversations(!showConversations()),
             'new_conversation': () => handleCreateConversation(),
             'delete_conversation': () => window.delete_conversation.showModal(),
             'conversation_details': () => setShowDetails(!showDetails()),
@@ -174,27 +202,55 @@ function Chat(props) {
         }
     }
 
+    const handleRegenerateAnswer = () => {
+        if (regenerateCount() < 3) {
+            setRegenerateCount(regenerateCount() + 1)
+            conversations()?.[selectedConversation()]?.messages.pop()
+            const lastUserMessage = conversations()?.[selectedConversation()]?.messages.pop()
+            lastUserMessage.type = "regenerate"
+            handleSendMessage(lastUserMessage)
+        } else {
+            setRegenerateCount(0)
+            setShowRegenerate(false)
+            const lastBotMessage = conversations()?.[selectedConversation()]?.messages.pop()
+            lastBotMessage.text = props.regenerateLimitText
+            lastBotMessage.type = "regenerate"
+            updateConversations(lastBotMessage)
+        }
+    }
+
     return (
-        <Row className="justify-between h-full">
-            <Conversations
-                showConversations={showConversations()}
-                conversations={conversations()}
-                onSelectConversation={handleSelectConversation}
-                selectedConversation={selectedConversation()}
-                onCreateConversation={handleCreateConversation}
-            />
-            {!(isMobile && showConversations()) &&
-                <Chatbox
+        <Row className="aion-justify-between aion-h-full">
+            {
+                allowConversations && (
+                    // <div
+                    //     className={`${isMobile && "aion-fixed aion-w-full aion-bg-opacity-10 aion-z-50"}`}
+                    // >
+                    <Conversations
+                        showConversations={showConversations()}
+                        conversations={conversations()}
+                        onSelectConversation={handleSelectConversation}
+                        selectedConversation={selectedConversation()}
+                        onCreateConversation={handleCreateConversation}
+                        createConversationLabel={createConversationLabel}
+                    />
+                    // </div>
+                )
+            }
+            {
+                !(showConversations() && isMobile) &&
+                < Chatbox
+                    isMobile={isMobile}
+                    ref={messagesList}
+                    allowConversations={allowConversations}
                     showConversations={showConversations()}
                     showDetails={showDetails()}
                     conversation={conversations()?.[selectedConversation()]}
                     onSelectConfig={handleSelectConfig}
                     availableConfig={availableConfig}
-                    selectedBot={conversations()?.[selectedConversation()]?.bot}
                     onSelectBot={handleSelectBot}
                     bots={bots()}
-                    messages={conversations()?.[selectedConversation()]?.messages}
-                    onRegenerate={() => { console.log('Clicked Regenerate Button') }}
+                    onRegenerate={showRegenerate() && handleRegenerateAnswer}
                     placeholder={placeholder}
                     onSendMessage={handleSendMessage}
                     onDeleteConversation={handleDeleteConversation}

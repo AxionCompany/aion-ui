@@ -1,47 +1,50 @@
-import InputMessage from './InputMessage';
-import { Col, Row } from '../../Base/Grid';
-import MessagesList from './MessagesList';
-import Configuration from './Configuration';
-import BotsList from './Bots';
-import ConversationDetails from './ConversationDetails';
-
-import Actions from './Actions';
-
-import { createEffect } from 'solid-js';
+import InputMessage from './InputMessage.jsx';
+import { Col } from '../../Base/Grid/index.jsx';
+import MessagesList from './MessagesList.jsx';
+import Header from './Header.jsx';
+import BotsList from './Bots/index.jsx';
+import ConversationDetails from './ConversationDetails.jsx';
+import Actions from './Actions.jsx';
 
 export default function Chatbox(props) {
-    let messagesList;
 
     return (
-        <Col className="lg:py-4 lg:px-12 justify-between overflow-hidden">
-            <Col className="overflow-auto">
-                {props.availableConfig?.length &&
-                    <Configuration
-                        showDetails={props.showDetails}
-                        showConversations={props.showConversations}
-                        availableConfig={props.availableConfig}
-                        onSelectConfig={props.onSelectConfig}
-                        onDeleteConversation={props.onDeleteConversation}
-                    />
-                }
-                { props.showDetails
-                    ? <ConversationDetails conversation={props.conversation} />
-                    : 
-                    props.selectedBot || props.messages?.length || props.bots?.length === 1
-                        ? <MessagesList
-                            onSendMessage={props.onSendMessage}
-                            messages={props.messages}
-                            ref={messagesList}
-                        />
-                        : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} />
-                }
+        <Col className="aion-justify-between">
+            {props.availableConfig?.length &&
+                <Header
+                    isMobile={props.isMobile}
+                    showDetails={props.showDetails}
+                    showConversations={props.showConversations}
+                    availableConfig={props.availableConfig}
+                    allowConversations={props.allowConversations}
+                    onSelectConfig={props.onSelectConfig}
+                    onDeleteConversation={props.onDeleteConversation}
+                />
+            }
+            <Col className="lg:aion-px-12 aion-items-start aion-justify-start aion-overflow-auto aion-h-full">
+                {/* <Col className="overflow-auto"> */}
+                    {props.showDetails
+                        ? <ConversationDetails conversation={props.conversation} />
+                        :
+                        props.conversation?.bot || props?.conversation?.messages?.length || props.bots?.length === 1
+                            ? <MessagesList
+                                onSendMessage={props.onSendMessage}
+                                messages={props.conversation.messages}
+                                ref={props.ref}
+                                onRegenerate={props.onRegenerate}
+                            />
+                            : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} />
+                    }
+                {/* </Col> */}
             </Col>
-            <Col>
-                {props.onRegenerate && <Actions onRegenerate={props.onRegenerate} />}
+            <Col className="lg:aion-px-12 lg:aion-pb-3">
+                {(props?.conversation?.messages.length > 0 && props.onRegenerate) &&
+                    <Actions showConversations={props.showConversations} isMobile={props.isMobile} onRegenerate={props.onRegenerate} />
+                }
                 <InputMessage
                     placeholder={props.placeholder}
                     onSendMessage={props.onSendMessage}
-                    messageListRef={messagesList}
+                    messageListRef={props.ref}
                 />
             </Col>
         </Col>

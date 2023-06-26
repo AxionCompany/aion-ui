@@ -1,10 +1,10 @@
-import { Col, Row } from '../../Base/Grid';
-import RenderMarkdown from '../../Base/RenderMarkdown';
+import { Col, Row } from '../../Base/Grid/index.jsx';
+import RenderMarkdown from '../../Base/RenderMarkdown.jsx';
 
 export default function ConversationDetails(props) {
 
     return (
-        <Col className="prose px-4 py-12">
+        <Col className="aion-prose aion-px-4 aion-py-12">
             <RenderMarkdown>
                 {
                     `# ${props.conversation?.title || "Sem nome"} \n`
