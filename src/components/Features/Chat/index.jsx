@@ -31,6 +31,10 @@ function Chat(props) {
         const oldConversations = []
         const today = new Date()
 
+        if (conversations().length === 0) {
+            handleCreateConversation()
+        }
+
         conversations().forEach(conversation => {
             const difference = today - new Date(conversation.updatedAt)
             if (difference < 86400000) {
@@ -99,9 +103,11 @@ function Chat(props) {
 
             // Calling onSendMessage callback if provided
             if (props.onSendMessage) {
+                let messages = conversations()[selectedConversation()].messages;
+                messages = messages.filter(message => message.text !== botTypingCaption);
                 props
                     .onSendMessage(
-                        { message, conversation: conversations[selectedConversation()] },
+                        { message, conversation: { ...conversations()[selectedConversation()], messages } },
                         (text) => updateConversations({ author: 'chatbot', text }, true, true)
                     )
                     .then((text) => text && updateConversations({ author: 'chatbot', text }, true, false))
@@ -133,7 +139,8 @@ function Chat(props) {
             title: defaultTitle,
             description: defaultDescription,
             id: conversations().length + 1,
-            messages: []
+            messages: [],
+            createdAt: new Date(),
         }];
         setConversations(newConversations);
         setSelectedConversation(newConversations.length - 1);

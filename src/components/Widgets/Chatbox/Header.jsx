@@ -38,7 +38,6 @@ export default function Header(props) {
                                     </Button>
                                 )
                         )
-
                     )
                 }
             </div>

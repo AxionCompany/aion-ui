@@ -1,5 +1,5 @@
 import Button from "../../Base/Button.jsx";
-import TextArea from "../../Base/TextArea/index.jsx";
+import Input from "../../Base/InputMessage/index.jsx";
 import { Row, Col } from "../../Base/Grid/index.jsx";
 
 import { createSignal } from 'solid-js';
@@ -33,7 +33,7 @@ export default function InputMessage(props) {
 
     return (
         <Row className="aion-items-end aion-justify-between aion-shadow-default aion-join aion-bg-base-100 aion-text-base-content">
-            <TextArea
+            <Input
                 onChange={(e) => setMessage(e.target.innerText)}
                 placeholder={placeholder()}
                 className="aion-join-item"
