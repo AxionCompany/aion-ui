@@ -24,30 +24,38 @@ function Chat(props) {
     const [showDetails, setShowDetails] = createSignal(false);
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
-    const [separatedConversations, setSeparatedConversations] = createSignal({
-        todayConversations: [],
-        weekConversations: [],
-        oldConversations: []
-    })
+
 
     createEffect(() => {
-        const today = new Date()
-
         if (conversations().length === 0) {
             handleCreateConversation()
         }
+    });
 
-        conversations().forEach(conversation => {
+    const groupConversations = conversations => {
+
+        let todayConversations = []
+        let weekConversations = []
+        let oldConversations = []
+        const today = new Date()
+
+        conversations.forEach((conversation,i) => {
             const difference = today - new Date(conversation.updatedAt)
             if (difference < 86400000) {
-                separatedConversations().todayConversations.push(conversation)
+                todayConversations = [...todayConversations, {...conversation, index:i}]
             } else if (difference < (86400000 * 7)) {
-                separatedConversations().weekConversations.push(conversation)
+                weekConversations = [...weekConversations,  {...conversation, index:i}]
             } else {
-                separatedConversations().oldConversations.push(conversation)
+                oldConversations = [...oldConversations,  {...conversation, index:i}]
             }
         });
-    });
+
+        return {
+            todayConversations,
+            weekConversations,
+            oldConversations
+        }
+    }
 
     createEffect(() => {
         if (selectedConversation()) {
@@ -143,6 +151,7 @@ function Chat(props) {
             id: conversations().length + 1,
             messages: [],
             createdAt: new Date(),
+            updatedAt: new Date(),
         }];
         setConversations(newConversations);
         setSelectedConversation(newConversations.length - 1);
@@ -232,18 +241,14 @@ function Chat(props) {
         <Row className="aion-justify-between aion-h-full">
             {
                 allowConversations && (
-                    // <div
-                    //     className={`${isMobile && "aion-fixed aion-w-full aion-bg-opacity-10 aion-z-50"}`}
-                    // >
                     <Conversations
                         showConversations={showConversations()}
-                        conversations={separatedConversations()}
+                        conversations={groupConversations(conversations())}
                         onSelectConversation={handleSelectConversation}
                         selectedConversation={selectedConversation()}
                         onCreateConversation={handleCreateConversation}
                         createConversationLabel={createConversationLabel}
                     />
-                    // </div>
                 )
             }
             {
