@@ -24,11 +24,13 @@ function Chat(props) {
     const [showDetails, setShowDetails] = createSignal(false);
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
+    const [separatedConversations, setSeparatedConversations] = createSignal({
+        todayConversations: [],
+        weekConversations: [],
+        oldConversations: []
+    })
 
     createEffect(() => {
-        const todayConversations = []
-        const weekConversations = []
-        const oldConversations = []
         const today = new Date()
 
         if (conversations().length === 0) {
@@ -38,11 +40,11 @@ function Chat(props) {
         conversations().forEach(conversation => {
             const difference = today - new Date(conversation.updatedAt)
             if (difference < 86400000) {
-                todayConversations.push(conversation)
+                separatedConversations().todayConversations.push(conversation)
             } else if (difference < (86400000 * 7)) {
-                weekConversations.push(conversation)
+                separatedConversations().weekConversations.push(conversation)
             } else {
-                oldConversations.push(conversation)
+                separatedConversations().oldConversations.push(conversation)
             }
         });
     });
@@ -235,7 +237,7 @@ function Chat(props) {
                     // >
                     <Conversations
                         showConversations={showConversations()}
-                        conversations={conversations()}
+                        conversations={separatedConversations()}
                         onSelectConversation={handleSelectConversation}
                         selectedConversation={selectedConversation()}
                         onCreateConversation={handleCreateConversation}
