@@ -1,6 +1,7 @@
-# AI-ON UI - ChatGPT-like (Mulit)Chatbot Snippet
+# AI-ON UI 
 
-This npm module allows you to add a chatbot UI widget to your front-end Node.js projects. Built with Solid.js, this widget provides a seamless way to interact with multiple chatbots at once. 
+## A ChatGPT-like (Mulit) Chatbot Snippet
+This npm module allows you to add a chatbot UI widget to your website or application. Built with Solid.js, this widget provides a seamless way to interact with multiple chatbots at once. 
 Users can easily create integrations through simple props.
 
 ## Built with JSX, Integrate with any framework
@@ -145,9 +146,5 @@ GNU GPLv3 ©
 
 ## Author
 Made with ❤️ by AI-ON Team 👋🏽 Get in touch!
-
-
-[![Github Badge](https://img.shields.io/badge/-AI--ON-6633cc?style=flat-square&logo=Github&logoColor=white&link=
-[![Linkedin Badge](https://img.shields.io/badge/-João%20Pedro%20Schmitz-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/joaopedroschmitz/)](https://www.linkedin.com/in/joaopedroschmitz/)  
 
 
