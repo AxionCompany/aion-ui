@@ -1,4 +1,4 @@
-import { Col, Row } from '../components/Base/Grid/index.jsx';
+import { Col } from '../components/Base/Grid/index.jsx';
 
 export default function (props) {
     return (
