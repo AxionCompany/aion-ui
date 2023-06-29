@@ -5,6 +5,21 @@ import { createSignal, createEffect } from 'solid-js';
 
 const isMobile = window.innerWidth < 768;
 
+const _availableConfig = [
+    {
+        id: 'new_conversation',
+        name: 'Nova Conversa',
+    },
+    {
+        id: 'conversation_details',
+        name: 'Dados da Conversa',
+    },
+    {
+        id: 'delete_conversation',
+        name: 'Apagar Conversa',
+    },
+];
+
 function Chat(props) {
 
     let messagesList;

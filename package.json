@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/pluginutils": "^5.0.2",
     "postcss-import": "^15.1.0",
     "rollup": "^3.25.2",
     "rollup-plugin-postcss": "^4.0.2",

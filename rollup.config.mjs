@@ -4,6 +4,8 @@ import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
+import prefixCssId from './prefixCssId.mjs';
+
 
 export default {
     input: 'src/Main.jsx',
@@ -27,8 +29,8 @@ export default {
             extract: true,
             plugins: [postcssImport()],
             modules: false,
-            use: ['sass'],
         }),
         terser(),
+        prefixCssId({ include: '**/*.css' })
     ],
 };
