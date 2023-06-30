@@ -7,11 +7,11 @@ import { Row } from '../../../Base/Grid/index.jsx';
 export default function Message(props) {
 
     return (
-        <Row className="aion-py-4 aion-items-center aion-justify-center aion-max-w-[95%]">
+        <Row className="py-4 items-center justify-center max-w-[95%]">
             {props.author === "user"
                 ? (
                     <UserMessage color="gray">
-                        <RenderMarkdown className="aion-prose aion-text-base-content">
+                        <RenderMarkdown className="prose text-base-content">
                             {props.children}
                         </RenderMarkdown>
                     </UserMessage>
@@ -19,7 +19,7 @@ export default function Message(props) {
                 : (
 
                     <BotMessage color="black">
-                        <RenderMarkdown  className="aion-prose">
+                        <RenderMarkdown  className="prose">
                             {props.children}
                         </RenderMarkdown>
                     </BotMessage>

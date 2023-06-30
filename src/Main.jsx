@@ -2,15 +2,15 @@ import { render } from 'solid-js/web';
 import './index.css';
 import App from './App.jsx';
 
-const RenderAppInstance = (id) => (props) => {
+const renderer = (props) => {
 
-  const element = document.getElementById(id);
+  const element = document.getElementById('aion-ui');
 
   render(() => <App {...props} />, element);
 }
 
 if (typeof window !== 'undefined') {
-  window.RenderAppInstance = RenderAppInstance;
-}
+  window.renderer = renderer;
+} 
 
-export default RenderAppInstance;
+export default renderer;

@@ -8,6 +8,6 @@ export default function RenderHtml(props) {
     });
 
     return (
-        <div className={`aion-w-full ${props.className}`} ref={div} ></div>
+        <div className={`w-full ${props.className}`} ref={div} ></div>
     )
 }

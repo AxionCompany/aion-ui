@@ -28,7 +28,7 @@ export default function prefixCss(options = {}) {
                       return selector;
                     }
                     
-                    return `#ai-on ${selector}`;
+                    return `#aion-ui ${selector}`;
                   });
               });
 

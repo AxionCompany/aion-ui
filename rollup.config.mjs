@@ -4,7 +4,6 @@ import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
-import prefixCssId from './prefixCssId.mjs';
 
 
 export default {
@@ -26,11 +25,11 @@ export default {
             presets: ['solid'],
         }),
         postcss({
-            extract: true,
+            // extract: true,
+            inject: true,
             plugins: [postcssImport()],
             modules: false,
         }),
         terser(),
-        prefixCssId({ include: '**/*.css' })
     ],
 };

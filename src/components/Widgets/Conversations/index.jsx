@@ -5,16 +5,16 @@ import { Col } from "../../Base/Grid/index.jsx";
 export default function Conversations(props) {
 
     return (
-        <Col className={`${!props.showConversations && 'aion-hidden'} aion-bg-base-100 aion-text-base-content md:aion-flex-col-reverse aion-pb-8 md:aion-pb-0 aion-pt-8 aion-justify-between md:aion-justify-end aion-w-full aion-h-screen aion-px-3 aion-max-w-[400px] aion-shadow-md`}>
-            <Col className="aion-mt-[-20px] md:aion-mt-0 aion-mb-2 md:aion-flex-col-reverse md:aion-justify-between aion-h-full">
-                <span className="aion-text-xs md:aion-text-xs aion-text-right md:aion-text-center">Powered by <a className="aion-underline aion-text-primary" href="https://ai-on.co">ai-on.co</a></span>
+        <Col className={`${!props.showConversations && 'hidden'} bg-base-100 text-base-content md:flex-col-reverse pb-8 md:pb-0 pt-8 justify-between md:justify-end w-full h-full px-3 max-w-[400px] shadow-md`}>
+            <Col className="h-full mt-[-20px] md:mt-0 mb-2 md:flex-col-reverse md:justify-between overflow-hidden">
+                <span className="text-xs md:text-xs text-right md:text-center">Powered by <a className="underline text-primary" href="https://ai-on.co">ai-on.co</a></span>
                 <ConversationList {...props} />
             </Col>
-            <Col className="md:aion-flex-col-reverse">
-                <div className="aion-divider before:aion-bg-neutral-content after:aion-bg-neutral-content"></div>
+            <Col className="md:flex-col-reverse">
+                <div className="divider before:bg-neutral-content after:bg-neutral-content"></div>
                 <Button
                     onClick={props.onCreateConversation}
-                    className="aion-btn-primary aion-shadow-md"
+                    className="btn-primary shadow-md"
                 >
                     {props.createConversationLabel || 'Nova Conversa'}
                 </Button>

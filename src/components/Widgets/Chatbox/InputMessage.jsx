@@ -32,19 +32,19 @@ export default function InputMessage(props) {
     }
 
     return (
-        <Row className="aion-items-end aion-justify-between aion-shadow-default aion-join aion-bg-base-100 aion-text-base-content">
+        <Row className="items-end justify-between shadow-default join bg-base-100 text-base-content">
             <Input
                 onChange={(e) => setMessage(e.target.innerText)}
                 placeholder={placeholder()}
-                className="aion-join-item"
+                className="join-item"
                 value={message()}
                 onEnter={() => handleSendMessage(message())}
             />
             <Button
                 onClick={() => handleSendMessage(message(), true)}
-                className="aion-join-item aion-btn-ghost hover:aion-bg-primary"
+                className="join-item btn-ghost hover:bg-primary"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#969696" class="aion-w-6 aion-h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#969696" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                 </svg>
             </Button>

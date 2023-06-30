@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html data-theme="lofi">
+<html data-theme="lofi" class="aion-ui">
 
-<head>
+<head class="aion-ui">
     <title>Test</title>
-    <link rel="stylesheet" href="dist/widget.css">
     <script src="dist/widget.mjs" type="module"></script>
 
-    <script>
-        const RenderAppInstance = window.RenderAppInstance;
-        const renderApp = RenderAppInstance('teste');
+</head>
+
+<body class="aion-ui">
+    <div style="height:100vh" id="aion-ui"></div>
+    <script type="module">
+        const renderer = window.renderer;
         const text1 = "#title\n\n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam lacinia, nunc nunc aliquet nunc, vitae aliquam nisl nunc vitae nisl. Donec euismod, nisl eget aliquam lacinia, nunc nunc aliquet nunc, vitae aliquam nisl nunc vitae nisl.";
         const text2 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod. ![imagem-teste](https://www.pontotel.com.br/wp-content/uploads/2022/05/imagem-corporativa.webp)"
+        if (!renderer) {
+            console.error("RenderAppInstance not found");
+        }
 
         const messages = [
             { "author": "chatbot", "text": text1 },
@@ -137,12 +142,10 @@
                 }
             ]
         }
-        renderApp(initialProps)
-    </script>
-</head>
 
-<body>
-    <div id="teste"></div>
+        renderer(initialProps)
+
+    </script>
 </body>
 
 </html>

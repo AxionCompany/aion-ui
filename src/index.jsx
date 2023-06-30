@@ -2,7 +2,7 @@
 import RenderAppInstance from './Main.jsx';
 import * as Providers from './providers/sendMessage/index.js';
 
-const renderApp = RenderAppInstance('root');
+const renderApp = RenderAppInstance;
 
 const bots = [
   {
@@ -12,11 +12,6 @@ const bots = [
     introMessage: "Olá, eu sou o bot 1",
     suggestions: ['sugestão 1', 'sugestão 2', 'sugestão 3'],
     instructions: "You are a helpful assistant. Your name is Molly"
-  },
-  {
-    name: "Bot 2",
-    description: "Descrição do bot 2",
-    id: 2
   }
 ];
 

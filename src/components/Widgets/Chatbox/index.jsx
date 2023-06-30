@@ -9,7 +9,7 @@ import Actions from './Actions.jsx';
 export default function Chatbox(props) {
 
     return (
-        <Col className="aion-justify-between">
+        <Col className="justify-between overflow-hidden">
             {props.availableConfig?.length &&
                 <Header
                     isMobile={props.isMobile}
@@ -21,7 +21,7 @@ export default function Chatbox(props) {
                     onDeleteConversation={props.onDeleteConversation}
                 />
             }
-            <Col className="lg:aion-px-12 aion-items-start aion-justify-start aion-overflow-auto aion-h-full">
+            <Col className="lg:px-12 items-start justify-start overflow-auto h-full">
                 {/* <Col className="overflow-auto"> */}
                     {props.showDetails
                         ? <ConversationDetails conversation={props.conversation} />
@@ -29,7 +29,7 @@ export default function Chatbox(props) {
                         props.conversation?.bot || props?.conversation?.messages?.length || props.bots?.length === 1
                             ? <MessagesList
                                 onSendMessage={props.onSendMessage}
-                                messages={props.conversation.messages}
+                                messages={props.conversation?.messages}
                                 ref={props.ref}
                                 onRegenerate={props.onRegenerate}
                             />
@@ -37,7 +37,7 @@ export default function Chatbox(props) {
                     }
                 {/* </Col> */}
             </Col>
-            <Col className="lg:aion-px-12 lg:aion-pb-3">
+            <Col className="lg:px-12 lg:pb-3">
                 {(props?.conversation?.messages.length > 0 && props.onRegenerate) &&
                     <Actions showConversations={props.showConversations} isMobile={props.isMobile} onRegenerate={props.onRegenerate} />
                 }
