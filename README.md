@@ -10,12 +10,12 @@ Built on top of solid.js and web components, this widget can be integrated with 
 
 ## Features
 
--   **Multi-Chatbot**: Easily integrate multiple chatbots into your UI
--   **Out-of-the-box Themes**: Choose from a variety of themes
+-   **Multi-Chatbot**: Easily integrate multiple chatbots into your UI, but you can also use it with a single chatbot
+-   **Out-of-the-box Themes**: Choose from a variety of built-in themes from DaisyUI or create your own
 -   **Responsive**: This widget is responsive and mobile-friendly
--   **Customizable**: Customize the look and feel of the chatbot widget with the familiar modern developer toolkit: Tailwind CSS and JSX
+-   **Customizable**: Customize the look and feel of the chatbot widget with a familiar toolkit for modern web developers: Tailwind CSS and JSX
 -   **Easy to use**: Simply add the widget to your project and pass in the props
--   **Built with Solid.js**: Built with Solid.js, this widget can be integrated with any framework
+-   **Built with Solid.js**: Built with Solid.js, this widget can be integrated with any framework. Plus, you get JSX with no version conflicts with other frameworks
 -   **Open Source**: This widget is open source and free to use
 -   **Bateries Included**: This widget comes with OpenAI Integration provider. If you want to enhance your chatbot capabilities even further with user management, automatic memory management and interacting with your custom knowledge base, there's the AION Provider. You can also easily integrate your own chatbot provider. More built-in providers coming soon.
 

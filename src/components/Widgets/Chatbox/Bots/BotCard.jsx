@@ -11,11 +11,11 @@ export default function BotCard(props) {
     return (
         <Col
             onClick={props.onClick}
-            className={`aion-py-2 aion-cursor-pointer ${defaultProps.className} aion-max-w-sm`}
+            className={`py-2 cursor-pointer ${defaultProps.className} max-w-sm`}
         >
-            <Card className={`aion-hover:shadow-md aion-h-[100px] ${props.selected ? 'aion-shadow-md aion-border-l-8 aion-border-neutral-400' : ''}`}>
-                <span className="aion-font-bold aion-truncate aion-inline">{props.title || defaultProps.title}</span>
-                <span className="aion-truncate">{props.description || defaultProps.descriptioin}</span>
+            <Card className={`hover:shadow-md h-[100px] ${props.selected ? 'shadow-md border-l-8 border-neutral-400' : ''}`}>
+                <span className="font-bold truncate inline">{props.title || defaultProps.title}</span>
+                <span className="truncate">{props.description || defaultProps.descriptioin}</span>
             </Card>
         </Col>
     )

@@ -14,7 +14,7 @@ export default function BotsList(props) {
     })
 
     return (
-        <Col className="aion-w-full aion-overflow-y-scroll aion-px-6 aion-items-center aion-justify-center aion-pt-12">
+        <Col className="w-full overflow-y-scroll px-6 items-center justify-center pt-12">
             {props?.bots?.map((bot, index) => (
                 <BotCard
                     key={index}

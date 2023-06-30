@@ -5,6 +5,7 @@ import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 
+
 export default {
     input: 'src/Main.jsx',
     output: {
@@ -24,10 +25,10 @@ export default {
             presets: ['solid'],
         }),
         postcss({
-            extract: true,
+            // extract: true,
+            inject: true,
             plugins: [postcssImport()],
             modules: false,
-            use: ['sass'],
         }),
         terser(),
     ],

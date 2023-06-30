@@ -10,11 +10,11 @@ export default function Header(props) {
     }
 
     return (
-        <Row className="aion-items-center aion-justify-between aion-py-2 aion-px-4 aion-bg-base-100 aion-shadow-sm">
+        <Row className="items-center justify-between py-2 px-4 bg-base-100 shadow-sm">
             <div className="mr-2">
                 {props.showDetails
                     ? (
-                        <Button className="aion-btn-ghost aion-btn-circle aion-btn-sm" onClick={() => handleSelect({ id: 'conversation_details' })}>
+                        <Button className="btn-ghost btn-circle btn-sm" onClick={() => handleSelect({ id: 'conversation_details' })}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
@@ -24,15 +24,15 @@ export default function Header(props) {
                         (
                             props.showConversations
                                 ? (
-                                    <Button className="aion-btn-ghost aion-btn-circle aion-btn-sm" onClick={() => handleSelect({ id: 'toggle_conversations' })}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="aion-w-6 aion-h-6">
+                                    <Button className="btn-ghost btn-circle btn-sm" onClick={() => handleSelect({ id: 'toggle_conversations' })}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                                         </svg>
                                     </Button>
                                 )
                                 : (
-                                    <Button className="aion-btn-ghost aion-btn-circle aion-btn-sm" onClick={() => handleSelect({ id: 'toggle_conversations' })}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="aion-w-6 aion-h-6">
+                                    <Button className="btn-ghost btn-circle btn-sm" onClick={() => handleSelect({ id: 'toggle_conversations' })}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                                         </svg>
                                     </Button>
@@ -53,8 +53,8 @@ export default function Header(props) {
                 options={props.availableConfig}
                 onSelect={handleSelect}
             >
-                <label tabindex="0" className="aion-btn aion-btn-ghost aion-btn-circle aion-btn-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="aion-w-6 aion-h-6">
+                <label tabindex="0" className="btn btn-ghost btn-circle btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                     </svg>
                 </label>

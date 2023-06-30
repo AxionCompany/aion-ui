@@ -28,10 +28,16 @@ export default function TextArea(props) {
             ref={inputRef}
             onFocus={() => { setIsFocused(true); inputRef.focus() }}
             onClick={() => { setIsFocused(true); inputRef.focus() }}
-            className={`aion-w-full aion-overflow-y-scroll aion-py-3 aion-px-6 aion-max-h-[200px] ${props.className} ${(!props.value) ? 'aion-text-gray-400' : 'aion-text-base-content'}`}
+            className={`w-full overflow-y-scroll py-3 px-6 max-h-[200px] ${props.className} ${(!props.value) ? 'text-gray-400' : 'text-base-content'}`}
             contenteditable={true}
             onInput={handleChange}
-            onFocusOut={() => { setIsFocused(false) }}
+            onFocusOut={() => { setIsFocused(false); setTimeout(() => {
+                // Manually scroll the window by 1px.
+                window.scrollTo(0, window.scrollY + 1);
+                
+                // Immediately scroll back.
+                window.scrollTo(0, window.scrollY - 1);
+            }, 0); }}
         >
             {(!isFocused() && !props.value) ? props.placeholder : ''}
         </div>

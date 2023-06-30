@@ -1,9 +1,24 @@
 import Chatbox from '../../Widgets/Chatbox/index.jsx';
 import Conversations from '../../Widgets/Conversations/index.jsx';
-import { Row } from '../../Base/Grid/index.jsx';
+import { Row , Col} from '../../Base/Grid/index.jsx';
 import { createSignal, createEffect } from 'solid-js';
 
 const isMobile = window.innerWidth < 768;
+
+const _availableConfig = [
+    {
+        id: 'new_conversation',
+        name: 'Nova Conversa',
+    },
+    {
+        id: 'conversation_details',
+        name: 'Dados da Conversa',
+    },
+    {
+        id: 'delete_conversation',
+        name: 'Apagar Conversa',
+    },
+];
 
 function Chat(props) {
 
@@ -39,14 +54,14 @@ function Chat(props) {
         let oldConversations = []
         const today = new Date()
 
-        conversations.forEach((conversation,i) => {
+        conversations.forEach((conversation, i) => {
             const difference = today - new Date(conversation.updatedAt)
             if (difference < 86400000) {
-                todayConversations = [...todayConversations, {...conversation, index:i}]
+                todayConversations = [...todayConversations, { ...conversation, index: i }]
             } else if (difference < (86400000 * 7)) {
-                weekConversations = [...weekConversations,  {...conversation, index:i}]
+                weekConversations = [...weekConversations, { ...conversation, index: i }]
             } else {
-                oldConversations = [...oldConversations,  {...conversation, index:i}]
+                oldConversations = [...oldConversations, { ...conversation, index: i }]
             }
         });
 
@@ -78,7 +93,7 @@ function Chat(props) {
         }
 
         const newConversations = [...conversations()]
-        let messages = newConversations[selectedConversation()].messages;
+        let messages = newConversations[selectedConversation()].messages || [];
         if (removeBotTyping) {
             messages = messages.filter(message => message.text !== botTypingCaption);
         }
@@ -172,13 +187,14 @@ function Chat(props) {
         }
         if (bot.suggestions) {
             bot.suggestions.forEach(suggestion => {
-                botMessage += `<button class="aion-btn aion-btn-outline aion-m-2 aion-shadow-md suggestion-btn">${suggestion}</button>`;
+                botMessage += `<button class="btn btn-outline m-2 shadow-md suggestion-btn">${suggestion}</button>`;
             })
         }
 
         newConversations[selectedConversation()] = {
             ...newConversations[selectedConversation()],
             bot: bot,
+            messages: newConversations[selectedConversation()].messages || []
         }
 
         setConversations(newConversations);
@@ -238,39 +254,39 @@ function Chat(props) {
     }
 
     return (
-        <Row className="aion-justify-between aion-h-full">
-            {
-                allowConversations && (
-                    <Conversations
+            <Row className="h-full overflow-auto">
+                {
+                    allowConversations && (
+                        <Conversations
+                            showConversations={showConversations()}
+                            conversations={groupConversations(conversations())}
+                            onSelectConversation={handleSelectConversation}
+                            selectedConversation={selectedConversation()}
+                            onCreateConversation={handleCreateConversation}
+                            createConversationLabel={createConversationLabel}
+                        />
+                    )
+                }
+                {
+                    !(showConversations() && isMobile) &&
+                    < Chatbox
+                        isMobile={isMobile}
+                        ref={messagesList}
+                        allowConversations={allowConversations}
                         showConversations={showConversations()}
-                        conversations={groupConversations(conversations())}
-                        onSelectConversation={handleSelectConversation}
-                        selectedConversation={selectedConversation()}
-                        onCreateConversation={handleCreateConversation}
-                        createConversationLabel={createConversationLabel}
+                        showDetails={showDetails()}
+                        conversation={conversations()?.[selectedConversation()]}
+                        onSelectConfig={handleSelectConfig}
+                        availableConfig={availableConfig}
+                        onSelectBot={handleSelectBot}
+                        bots={bots()}
+                        onRegenerate={showRegenerate() && handleRegenerateAnswer}
+                        placeholder={placeholder}
+                        onSendMessage={handleSendMessage}
+                        onDeleteConversation={handleDeleteConversation}
                     />
-                )
-            }
-            {
-                !(showConversations() && isMobile) &&
-                < Chatbox
-                    isMobile={isMobile}
-                    ref={messagesList}
-                    allowConversations={allowConversations}
-                    showConversations={showConversations()}
-                    showDetails={showDetails()}
-                    conversation={conversations()?.[selectedConversation()]}
-                    onSelectConfig={handleSelectConfig}
-                    availableConfig={availableConfig}
-                    onSelectBot={handleSelectBot}
-                    bots={bots()}
-                    onRegenerate={showRegenerate() && handleRegenerateAnswer}
-                    placeholder={placeholder}
-                    onSendMessage={handleSendMessage}
-                    onDeleteConversation={handleDeleteConversation}
-                />
-            }
-        </Row>
+                }
+            </Row>
     )
 }
 
