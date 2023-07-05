@@ -1,6 +1,6 @@
 import Chatbox from '../../Widgets/Chatbox/index.jsx';
 import Conversations from '../../Widgets/Conversations/index.jsx';
-import { Row , Col} from '../../Base/Grid/index.jsx';
+import { Row, Col } from '../../Base/Grid/index.jsx';
 import { createSignal, createEffect } from 'solid-js';
 
 const isMobile = window.innerWidth < 768;
@@ -31,15 +31,20 @@ function Chat(props) {
     const botTypingCaption = props.botTypingCaption || "Digitando...";
     const createConversationLabel = props.createConversationLabel || "Nova conversa";
     const allowConversations = props.allowConversations || false;
+    const hideHeader = props.hideHeader || false;
 
     const [selectedConversation, setSelectedConversation] = createSignal(0);
     const [conversations, setConversations] = createSignal(props.conversations);
     const [bots, setBots] = createSignal(props.bots);
-    const [showConversations, setShowConversations] = createSignal(true);
+    const [showConversations, setShowConversations] = createSignal(!hideHeader && allowConversations &&true);
     const [showDetails, setShowDetails] = createSignal(false);
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
 
+    createEffect(() => {
+        if (props.onInit)
+            props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
+    });
 
     createEffect(() => {
         if (conversations().length === 0) {
@@ -158,24 +163,26 @@ function Chat(props) {
 
     }
 
-    const handleCreateConversation = () => {
+    const handleCreateConversation = async () => {
+        let id;
+        // Create conversation via callback
+        if (props.onCreateConversation) {
+            id = await props.onCreateConversation();
+        }
 
         const newConversations = [...conversations(), {
             title: defaultTitle,
             description: defaultDescription,
-            id: conversations().length + 1,
+            id: id || conversations().length + 1,
             messages: [],
             createdAt: new Date(),
             updatedAt: new Date(),
         }];
+
         setConversations(newConversations);
         setSelectedConversation(newConversations.length - 1);
         isMobile && setShowConversations(false);
 
-        // Create conversation via callback
-        if (props.onCreateConversation) {
-            props.onCreateConversation({ conversation: newConversations[newConversations.length - 1] });
-        }
     }
 
     const handleSelectBot = (bot) => {
@@ -222,7 +229,17 @@ function Chat(props) {
         isMobile && setShowConversations(false);
     }
 
-    const handleDeleteConversation = () => {
+    const handleDeleteConversation = async () => {
+
+        // Delete Conversation via callback
+        if (props.onDeleteConversation) {
+            const deleted = await props.onDeleteConversation({ conversation: conversations[selectedConversation()] });
+            if (!deleted) {
+                window.alert('You can not delete this conversation')
+                return;
+            }
+        }
+
         const newConversations = [...conversations()];
         newConversations.splice(selectedConversation(), 1);
         setConversations(newConversations);
@@ -230,10 +247,6 @@ function Chat(props) {
         setShowConversations(true);
         setShowDetails(false)
 
-        // Delete Conversation via callback
-        if (props.onDeleteConversation) {
-            props.onDeleteConversation(conversations[selectedConversation()]);
-        }
     }
 
     const handleRegenerateAnswer = () => {
@@ -254,39 +267,40 @@ function Chat(props) {
     }
 
     return (
-            <Row className="h-full overflow-auto">
-                {
-                    allowConversations && (
-                        <Conversations
-                            showConversations={showConversations()}
-                            conversations={groupConversations(conversations())}
-                            onSelectConversation={handleSelectConversation}
-                            selectedConversation={selectedConversation()}
-                            onCreateConversation={handleCreateConversation}
-                            createConversationLabel={createConversationLabel}
-                        />
-                    )
-                }
-                {
-                    !(showConversations() && isMobile) &&
-                    < Chatbox
-                        isMobile={isMobile}
-                        ref={messagesList}
-                        allowConversations={allowConversations}
+        <Row className="h-full overflow-auto">
+            {
+                allowConversations && (
+                    <Conversations
                         showConversations={showConversations()}
-                        showDetails={showDetails()}
-                        conversation={conversations()?.[selectedConversation()]}
-                        onSelectConfig={handleSelectConfig}
-                        availableConfig={availableConfig}
-                        onSelectBot={handleSelectBot}
-                        bots={bots()}
-                        onRegenerate={showRegenerate() && handleRegenerateAnswer}
-                        placeholder={placeholder}
-                        onSendMessage={handleSendMessage}
-                        onDeleteConversation={handleDeleteConversation}
+                        conversations={groupConversations(conversations())}
+                        onSelectConversation={handleSelectConversation}
+                        selectedConversation={selectedConversation()}
+                        onCreateConversation={handleCreateConversation}
+                        createConversationLabel={createConversationLabel}
                     />
-                }
-            </Row>
+                )
+            }
+            {
+                !(showConversations() && isMobile) &&
+                < Chatbox
+                    isMobile={isMobile}
+                    ref={messagesList}
+                    allowConversations={allowConversations}
+                    hideHeader={hideHeader}
+                    showConversations={showConversations()}
+                    showDetails={showDetails()}
+                    conversation={conversations()?.[selectedConversation()]}
+                    onSelectConfig={handleSelectConfig}
+                    availableConfig={availableConfig}
+                    onSelectBot={handleSelectBot}
+                    bots={bots()}
+                    onRegenerate={showRegenerate() && handleRegenerateAnswer}
+                    placeholder={placeholder}
+                    onSendMessage={handleSendMessage}
+                    onDeleteConversation={handleDeleteConversation}
+                />
+            }
+        </Row>
     )
 }
 
