@@ -7,10 +7,9 @@ import ConversationDetails from './ConversationDetails.jsx';
 import Actions from './Actions.jsx';
 
 export default function Chatbox(props) {
-
     return (
         <Col className="justify-between overflow-hidden">
-            {props.availableConfig?.length &&
+            {props.availableConfig?.length && !props.hideHeader &&
                 <Header
                     isMobile={props.isMobile}
                     showDetails={props.showDetails}
@@ -22,7 +21,6 @@ export default function Chatbox(props) {
                 />
             }
             <Col className="lg:px-12 items-start justify-start overflow-auto h-full">
-                {/* <Col className="overflow-auto"> */}
                     {props.showDetails
                         ? <ConversationDetails conversation={props.conversation} />
                         :
@@ -35,7 +33,6 @@ export default function Chatbox(props) {
                             />
                             : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} />
                     }
-                {/* </Col> */}
             </Col>
             <Col className="lg:px-12 lg:pb-3">
                 {(props?.conversation?.messages.length > 0 && props.onRegenerate) &&

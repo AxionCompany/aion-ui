@@ -1,23 +1,23 @@
 # AI-ON UI 
 
-## A ChatGPT-like (Mulit) Chatbot Snippet
-This npm module allows you to add a chatbot UI widget to your website or application. Built with Solid.js, this widget provides a seamless way to interact with multiple chatbots at once. 
+## A ChatGPT-like (Multi) Chatbot Snippet
+This npm module allows you to add a chatGPT-like chatbot UI widget to your website or application. Built with Solid.js, this widget provides a seamless way to interact with multiple chatbots at once. 
 Users can easily create integrations through simple props.
 
-## Built with JSX, Integrate with any framework
+## Build with JSX, Integrate with any framework
 
 Built on top of solid.js and web components, this widget can be integrated with any framework, and yet it leverages the power of JSX to provide a seamless developer experience.
 
 ## Features
 
 -   **Multi-Chatbot**: Easily integrate multiple chatbots into your UI, but you can also use it with a single chatbot
--   **Out-of-the-box Themes**: Choose from a variety of built-in themes from DaisyUI or create your own
--   **Responsive**: This widget is responsive and mobile-friendly
+-   **Out-of-the-box Themes**: Choose from a variety of built-in themes from DaisyUI or create your own by cutomizing this widget
+-   **Responsive**: This widget is responsive and mobile-friendly.
 -   **Customizable**: Customize the look and feel of the chatbot widget with a familiar toolkit for modern web developers: Tailwind CSS and JSX
--   **Easy to use**: Simply add the widget to your project and pass in the props
--   **Built with Solid.js**: Built with Solid.js, this widget can be integrated with any framework. Plus, you get JSX with no version conflicts with other frameworks
--   **Open Source**: This widget is open source and free to use
+-   **Easy to use**: Simply add the widget to your project and pass in the props. You don't have to worry about managing the state, or even leaking css to the rest of your application. It's all encapsulated in the widget.
+-   **Built with Solid.js**: Built with Solid.js, this widget can be integrated with any framework. Plus, you get JSX with no version conflicts with other frameworks.
 -   **Bateries Included**: This widget comes with OpenAI Integration provider. If you want to enhance your chatbot capabilities even further with user management, automatic memory management and interacting with your custom knowledge base, there's the AION Provider. You can also easily integrate your own chatbot provider. More built-in providers coming soon.
+-   **Open Source**: Under GNU GPL v3.0 license, this widget is open source and free to use. You can also contribute to the project by submitting a pull request. 
 
 ## Installation
 
@@ -33,7 +33,7 @@ yarn add @ai-on/ui
 
 ### CDN
 ```html
-<script src="https://unpkg.com/@ai-on/ui"></script>
+<script src="https://unpkg.com/@ai-on/ui" type="module"></script>
 ```
 
 ## Usage
@@ -41,20 +41,23 @@ yarn add @ai-on/ui
 If you imported the module using NPM or Yarn, you can import the module like so:
 
 ```jsx
-import RenderChatbotInstance from '@ai-on/ui';
-
- const renderApp = RenderAppInstance('your-div-id') // Pass in the id of the div you want to render the chatbot in
+import renderer from '@ai-on/ui';
+// {... rest of your code here ...}
 ```
 
 If you imported the module using CDN, you can import the module like so, in your `<script>`tag:
 
-```jsx
-const renderApp = window.RenderAppInstance('your-div-id') // Pass in the id of the div you want to render the chatbot in
+```html
+<script src="https://unpkg.com/@ai-on/ui"  type="module"></script>
+<script type="module">
+    const renderer = window.renderer // renderer is the global variable that contains the module
+    // {... rest of your code here ...}
+</script>
 ```
 
 Then, you can pass in the props to the widget like so:
 
-```jsx
+```js
 const initialProps = {
     onSendMessage: async ({ message, conversation }, stream) => {
         // Implement your logic when user sends a message here
@@ -104,11 +107,18 @@ const initialProps = {
         },
     ]
 };
+
+renderer(initialProps);
 ```
- Then, you can update the props like so:
-    
-```jsx
-renderApp(initialProps);
+
+And, finally, you can render the widget like so in your html file:
+
+```html
+<body>
+    <!-- ... Rest of your html code here ... -->
+    <!-- This is where the widget will be rendered. Please, note that the it's id should be 'aion-ui' -->
+    <div id="aion-ui" width="100%" height="100%" ></div> 
+</body>
 ```
 
 ## Props
@@ -128,17 +138,17 @@ renderApp(initialProps);
 | bot.id | Number | Id of the bot. | Yes | N/A | ```1``` |
 | bot.introMessage | String | Intro message of the bot. | Yes | N/A | ```"Hello, my name is bot 1. How can I help you today?"``` |
 | bot.suggestions | Array | List of suggestions that are shown to the user when the bot is typing. | Yes | N/A | ```["What's franch for 'bread'?", 'How are you doing? (answer as joey from friends)', 'What is the meaning of life?']``` |
-| conversations | Array | List of conversations that are available to the user. | Yes | N/A | ```[ { title: "Thread 1", description: "Description from thread 1", id: 1, messages: messages, bot: bots[0], updatedAt: new Date("2023-06-20") }, { title: "Thread 2", description: "Descrição longa da conversa 2, adicionando mais contexto e informações", id: 2, messages: messages, bot: bots[1], updatedAt: new Date("2023-06-20") }, ]``` |
-| conversations[].title | String | Title of the conversation. | Yes | N/A | ```"Thread 1"``` |
-| conversations[].description | String | Description of the conversation. | Yes | N/A | ```"Description from thread 1"``` |
-| conversations[].id | Number | Id of the conversation. | Yes | N/A | ```1``` |
-| conversations[].bot | Object | Bot that is associated with the conversation. | Yes | N/A | ``` bot``` |
-| conversations[].updatedAt | Date | Date of the last message in the conversation. | Yes | N/A | ```updatedAt: new Date("2023-06-20")``` |
-| conversations[].messages | Array | List of messages that are available in the conversation. | Yes | N/A | ```[ message ]``` |
+| conversations | Array | List of conversations that are available to the user. | Yes | N/A | ```[ conversation ]``` |
+| conversation.title | String | Title of the conversation. | Yes | N/A | ```"Thread 1"``` |
+| conversation.description | String | Description of the conversation. | Yes | N/A | ```"Description from thread 1"``` |
+| conversation.id | Number | Id of the conversation. | Yes | N/A | ```1``` |
+| conversation.bot | Object | Bot that is associated with the conversation. | Yes | N/A | ``` bot``` |
+| conversation.updatedAt | Date | Date of the last message in the conversation. | Yes | N/A | ```updatedAt: new Date("2023-06-20")``` |
+| conversation.messages | Array | List of messages that are available in the conversation. | Yes | N/A | ```[ message ]``` |
 | message.id | Number | Id of the message. | Yes | N/A | ```1``` |
 | message.text | String | Text of the message. | Yes | N/A | ```"Hello, my name is bot 1. How can I help you today?"``` |
 | message.createdAt | Date | Date of the message. | Yes | N/A | ```new Date("2023-06-20")``` |
-| message.author | String | Author of the message. | Yes | N/A | Enum: ["user", "chatbot"]|
+| message.author | String | Author of the message. | Yes | N/A | ```Enum: ["user", "chatbot"]```|
 
 ## License
 
