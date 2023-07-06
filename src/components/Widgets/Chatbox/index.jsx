@@ -24,14 +24,14 @@ export default function Chatbox(props) {
                     {props.showDetails
                         ? <ConversationDetails conversation={props.conversation} />
                         :
-                        props.conversation?.bot || props?.conversation?.messages?.length || props.bots?.length === 1
+                        props.conversation?.bot || props?.conversation?.messages?.length 
                             ? <MessagesList
                                 onSendMessage={props.onSendMessage}
                                 messages={props.conversation?.messages}
                                 ref={props.ref}
                                 onRegenerate={props.onRegenerate}
                             />
-                            : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} />
+                            : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} bot={props.conversation.bot} />
                     }
             </Col>
             <Col className="lg:px-12 lg:pb-3">

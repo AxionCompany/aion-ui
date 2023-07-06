@@ -6,10 +6,9 @@ export default function BotsList(props) {
 
     createEffect(() => {
         if (
-            (props?.messages?.length > 0 && props.selectedBot === null)
-            || (props?.messages?.length === 0 && props.bots.length === 1)
+            (props.bots.length === 1 && !props.bot)
         ) {
-            props?.setSelectedBot(0);
+            props?.onSelectBot(props.bots[0]);
         }
     })
 

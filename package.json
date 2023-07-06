@@ -1,8 +1,12 @@
 {
-  "name": "vite-template-solid",
-  "version": "0.0.0",
-  "description": "",
+  "name": "@ai-on/ui",
+  "version": "0.0.4",
+  "description": "Chat UI for Multi-ChatGPT like chatbots.",
   "source": "src/Main.jsx",
+  "main": "dist/widget.mjs",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "vite",
     "dev": "vite",

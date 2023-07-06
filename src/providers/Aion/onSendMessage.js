@@ -4,7 +4,7 @@ const aionProvider = (config) => async ({ message, conversation }, stream) => {
     const userId = config.userId;
     const tenant = config.tenant;
 
-    const response = await fetch(`http://localhost:3003/features/conversationv2/${conversation.id}`, {
+    const response = await fetch(`${config.apiUrl}/features/conversationv2/${conversation.id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

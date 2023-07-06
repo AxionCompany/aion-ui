@@ -3,7 +3,7 @@ const aionProvider = (config) => async ({ conversation }) => {
 
     if (!accessToken) return false;
 
-    const response = await fetch(`http://localhost:3003/resources/conversation/${conversation.id}`, {
+    const response = await fetch(`${config.apiUrl}/resources/conversation/${conversation.id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',

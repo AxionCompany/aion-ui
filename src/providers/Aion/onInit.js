@@ -1,22 +1,40 @@
 const aionProvider = (config) => async (setters) => {
-    const { userId, tenant } = config;
+    let { userId, tenant, subdomain, accessToken, type } = config;
 
+    type = type || 'public'  // can also be 'private-playground'
     const setBots = setters.setBots;
     const setConversations = setters.setConversations;
 
-    // call the openai api
-    const response = await fetch(`http://localhost:3003/features/playground/publicConversations?tenant=${tenant}&userId=${userId}`, {
+    const params = new URLSearchParams({
+        userId: userId,
+        tenant: tenant,
+        // subdomain: subdomain,
+    }).toString();
+
+    const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         }
-    });
+    }
 
+    if (accessToken) {
+        options.headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const path = type === 'public' ? 'publicConversations' : 'privateConversations'
+
+    // call the openai api
+    const response = await fetch(
+        `${config.apiUrl}/features/playground/${path}?${params}`,
+        options
+    );
     // get json response
     const json = await response.json();
 
     // set bots
     setBots(json.data.bots);
+
     const conversations = json?.data?.conversations?.map(conversation => {
         return {
             ...conversation,
@@ -26,6 +44,7 @@ const aionProvider = (config) => async (setters) => {
         }
     })
     setConversations(conversations);
+
 
     return json;
 }

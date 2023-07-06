@@ -206,7 +206,7 @@ function Chat(props) {
 
         setConversations(newConversations);
 
-        handleSendMessage({
+        botMessage && handleSendMessage({
             author: "chatbot",
             text: botMessage
         })
@@ -214,7 +214,6 @@ function Chat(props) {
     }
 
     const handleSelectConfig = (config) => {
-        console.log(config)
         const configMap = {
             'toggle_conversations': () => setShowConversations(!showConversations()),
             'new_conversation': () => handleCreateConversation(),
