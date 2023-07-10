@@ -26,7 +26,7 @@ export default function ConversationList(props) {
                                         <ConversationCard
                                             key={index}
                                             title={conversation.title}
-                                            bot={conversation.bot?.name}
+                                            bot={conversation?.bot?.name}
                                             description={conversation.description}
                                             selected={props.selectedConversation === conversation.index}
                                             onClick={() => props.onSelectConversation(conversation.index)}

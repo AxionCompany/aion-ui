@@ -1,8 +1,8 @@
 import { Col, Row } from "../../Base/Grid/index.jsx";
 
 const defaultProps = {
-    title: "Título",
-    description: "Descrição da conversa",
+    title: "Title",
+    description: "Description...",
     bot: "Bot",
     className: ""
 }
@@ -16,7 +16,7 @@ export default function ConversationCard(props) {
             <Col className="h-full">
                 <span className="font-bold truncate">{props.title || defaultProps.title}</span>
                 <Row className="gap-2 items-center">
-                    <span className="font-semibold text-xs truncate min-w-fit">{props.bot || defaultProps.bot}</span>
+                    <span className="font-semibold text-xs truncate min-w-fit">{props?.bot || defaultProps?.bot}</span>
                     <span className="text-sm truncate">{props.description || defaultProps.description}</span>
                 </Row>
             </Col>

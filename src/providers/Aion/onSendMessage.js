@@ -1,5 +1,5 @@
 const aionProvider = (config) => async ({ message, conversation }, stream) => {
-    console.log(conversation)
+
     // call the openai api
     const userId = config.userId;
     const tenant = config.tenant;

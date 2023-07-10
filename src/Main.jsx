@@ -9,6 +9,7 @@ const renderer = (props) => {
   const element = document.getElementById('aion-ui');
 
   render(() => <App {...props} />, element);
+  return element
 }
 
 if (typeof window !== 'undefined') {

@@ -1,5 +1,5 @@
 const echoProvider = (config) => async ({ message, conversation }, stream) => {
-    console.log(message)
+
     // simulate stream response
     let i = 0;
     const delta = 1;

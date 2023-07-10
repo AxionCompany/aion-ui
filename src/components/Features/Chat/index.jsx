@@ -32,11 +32,20 @@ function Chat(props) {
     const createConversationLabel = props.createConversationLabel || "Nova conversa";
     const allowConversations = props.allowConversations || false;
     const hideHeader = props.hideHeader || false;
+    const disableSendMessage = props.disableSendMessage || false;
+    const conversationMaxWidth = props.conversationMaxWidth || "400px";
+    const poweredBy = (typeof props.poweredBy !== 'undefined')
+        ? props.poweredBy
+        : {
+            label: "Powered by",
+            value: "ai-on.co",
+            url: "https://ai-on.co"
+        }
 
     const [selectedConversation, setSelectedConversation] = createSignal(0);
-    const [conversations, setConversations] = createSignal(props.conversations);
+    const [conversations, setConversations] = createSignal(props.conversations || []);
     const [bots, setBots] = createSignal(props.bots);
-    const [showConversations, setShowConversations] = createSignal(!hideHeader && allowConversations &&true);
+    const [showConversations, setShowConversations] = createSignal(!hideHeader && allowConversations && true);
     const [showDetails, setShowDetails] = createSignal(false);
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
@@ -98,7 +107,7 @@ function Chat(props) {
         }
 
         const newConversations = [...conversations()]
-        let messages = newConversations[selectedConversation()].messages || [];
+        let messages = newConversations[selectedConversation()]?.messages || [];
         if (removeBotTyping) {
             messages = messages.filter(message => message.text !== botTypingCaption);
         }
@@ -133,7 +142,7 @@ function Chat(props) {
 
             // Calling onSendMessage callback if provided
             if (props.onSendMessage) {
-                let messages = conversations()[selectedConversation()].messages;
+                let messages = conversations()[selectedConversation()]?.messages;
                 messages = messages.filter(message => message.text !== botTypingCaption);
                 props
                     .onSendMessage(
@@ -201,7 +210,7 @@ function Chat(props) {
         newConversations[selectedConversation()] = {
             ...newConversations[selectedConversation()],
             bot: bot,
-            messages: newConversations[selectedConversation()].messages || []
+            messages: newConversations[selectedConversation()]?.messages || []
         }
 
         setConversations(newConversations);
@@ -232,7 +241,7 @@ function Chat(props) {
 
         // Delete Conversation via callback
         if (props.onDeleteConversation) {
-            const deleted = await props.onDeleteConversation({ conversation: conversations[selectedConversation()] });
+            const deleted = await props.onDeleteConversation({ conversation: conversations()[selectedConversation()] });
             if (!deleted) {
                 window.alert('You can not delete this conversation')
                 return;
@@ -270,18 +279,22 @@ function Chat(props) {
             {
                 allowConversations && (
                     <Conversations
+                        conversationMaxWidth={conversationMaxWidth}
                         showConversations={showConversations()}
                         conversations={groupConversations(conversations())}
                         onSelectConversation={handleSelectConversation}
                         selectedConversation={selectedConversation()}
                         onCreateConversation={handleCreateConversation}
                         createConversationLabel={createConversationLabel}
+                        poweredBy={poweredBy}
+                        isMobile={isMobile}
                     />
                 )
             }
             {
                 !(showConversations() && isMobile) &&
                 < Chatbox
+                    disableSendMessage={disableSendMessage}
                     isMobile={isMobile}
                     ref={messagesList}
                     allowConversations={allowConversations}

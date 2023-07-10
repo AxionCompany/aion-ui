@@ -26,18 +26,19 @@ export default function TextArea(props) {
     return (
         <div
             ref={inputRef}
-            onFocus={() => { setIsFocused(true); inputRef.focus() }}
-            onClick={() => { setIsFocused(true); inputRef.focus() }}
+            onFocus={() => { !props.disabled && setIsFocused(true) && inputRef.focus() }}
+            onClick={() => { !props.disabled && setIsFocused(true) && inputRef.focus() }}
             className={`w-full overflow-y-scroll py-3 px-6 max-h-[200px] ${props.className} ${(!props.value) ? 'text-gray-400' : 'text-base-content'}`}
-            contenteditable={true}
+            contenteditable={!props.disabled}
             onInput={handleChange}
-            onFocusOut={() => { setIsFocused(false); setTimeout(() => {
+            onFocusOut={() => { !props.disabled && setIsFocused(false) && setTimeout(() => {
                 // Manually scroll the window by 1px.
                 window.scrollTo(0, window.scrollY + 1);
                 
                 // Immediately scroll back.
                 window.scrollTo(0, window.scrollY - 1);
             }, 0); }}
+
         >
             {(!isFocused() && !props.value) ? props.placeholder : ''}
         </div>

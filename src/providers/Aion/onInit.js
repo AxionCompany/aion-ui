@@ -1,4 +1,5 @@
 const aionProvider = (config) => async (setters) => {
+
     let { userId, tenant, subdomain, accessToken, type } = config;
 
     type = type || 'public'  // can also be 'private-playground'
@@ -8,7 +9,7 @@ const aionProvider = (config) => async (setters) => {
     const params = new URLSearchParams({
         userId: userId,
         tenant: tenant,
-        // subdomain: subdomain,
+        subdomain: subdomain,
     }).toString();
 
     const options = {
@@ -38,12 +39,12 @@ const aionProvider = (config) => async (setters) => {
     const conversations = json?.data?.conversations?.map(conversation => {
         return {
             ...conversation,
-            title: conversation.title || "Chat " + (json?.data?.bots?.find(bot => bot.id === conversation.bot).name || ''),
-            description: conversation.description || conversation.messages[0]?.text,
-            bot: json?.data?.bots?.find(bot => bot.id === conversation.bot)
+            title: conversation.title || "Chat " + (json?.data?.bots?.find(bot => bot.id === conversation?.bot).name || ''),
+            description: conversation.description || conversation?.messages[0]?.text,
+            bot: json?.data?.bots?.find(bot => bot?.id === conversation?.bot)
         }
     })
-    setConversations(conversations);
+    setConversations(conversations || []);
 
 
     return json;

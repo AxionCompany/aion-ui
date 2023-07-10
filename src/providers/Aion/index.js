@@ -4,11 +4,8 @@ import onCreateConversation from './onCreateConversation';
 // import onUpdateConversation from './onUpdateConversation';
 import onDeleteConversation from './onDeleteConversation';
 
-// const apiUrl = 'https://aion-homolog.azurewebsites.net';
-const apiUrl = 'http://localhost:3003';
-
 export default function AionProvider(config) {
-    config.apiUrl = apiUrl;
+    config.apiUrl = config.apiUrl || 'https://aion-server.azurewebsites.net';
     return {
         onInit: onInit(config),
         onSendMessage: onSendMessage(config),

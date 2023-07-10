@@ -34,6 +34,7 @@ export default function InputMessage(props) {
     return (
         <Row className="items-end justify-between shadow-default join bg-base-100 text-base-content">
             <Input
+                disabled={props.disabled}
                 onChange={(e) => setMessage(e.target.innerText)}
                 placeholder={placeholder()}
                 className="join-item"
@@ -41,6 +42,7 @@ export default function InputMessage(props) {
                 onEnter={() => handleSendMessage(message())}
             />
             <Button
+                disabled={props.disabled}
                 onClick={() => handleSendMessage(message(), true)}
                 className="join-item btn-ghost hover:bg-primary"
             >

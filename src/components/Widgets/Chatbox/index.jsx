@@ -7,6 +7,7 @@ import ConversationDetails from './ConversationDetails.jsx';
 import Actions from './Actions.jsx';
 
 export default function Chatbox(props) {
+
     return (
         <Col className="justify-between overflow-hidden">
             {props.availableConfig?.length && !props.hideHeader &&
@@ -31,7 +32,7 @@ export default function Chatbox(props) {
                                 ref={props.ref}
                                 onRegenerate={props.onRegenerate}
                             />
-                            : <BotsList onSelectBot={props.onSelectBot} bots={props.bots} bot={props.conversation.bot} />
+                            : <BotsList onSelectBot={props.onSelectBot} bots={props?.bots} bot={props.conversation?.bot} />
                     }
             </Col>
             <Col className="lg:px-12 lg:pb-3">
@@ -39,6 +40,7 @@ export default function Chatbox(props) {
                     <Actions showConversations={props.showConversations} isMobile={props.isMobile} onRegenerate={props.onRegenerate} />
                 }
                 <InputMessage
+                    disabled={props.disableSendMessage}
                     placeholder={props.placeholder}
                     onSendMessage={props.onSendMessage}
                     messageListRef={props.ref}
