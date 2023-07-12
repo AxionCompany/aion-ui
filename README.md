@@ -55,7 +55,7 @@ Minimal implementation Using OpenAI Provider.
 </html>
 ```
 
-Please, note that it is not recommended to use it in production as your api key would be visible.
+Please, note that it is not recommended to use this provider in production as your api key would be visible.
 For production, we recommend using other Providers, or implementing your own that comunicates with your backend.
 
 ## Features
