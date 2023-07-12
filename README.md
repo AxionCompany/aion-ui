@@ -15,7 +15,46 @@ Users can easily create integrations through simple props.
 
 Built on top of solid.js and web components, this widget can be integrated with any framework, and yet it leverages the power of JSX to provide a seamless developer experience.
 
+## LT;DR
+Minimal implementation Using OpenAI Provider
+```jsx
+<html>
+    <script type="module">
 
+    import renderer, { Providers } from 'https://unpkg.com/@ai-on/ui';
+
+        const { OpenAi } = Providers;
+        
+        if (!renderer) {
+            console.error("RenderAppInstance not found");
+        }
+
+        const initialProps = {
+            ...Providers['OpenAiProvider']({
+                apiKey: 'your-open-ai-key-here',
+                maxLength: 12000,
+                model: 'gpt-3.5-turbo',
+                stream: true
+            }),
+            allowConversations: true, // Allow users to create and delete new threads
+            bots: [{
+                name: 'ChatGpt',
+                description: 'ChatGpt',
+                instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
+                suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
+                introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
+            }],
+            conversations: []
+        }
+
+        renderer(initialProps)
+
+    </script>
+    <body>
+    <div id="aion-ui" width="100%" height="100%" ></div>
+    </body>
+</html>
+```
 
 
 

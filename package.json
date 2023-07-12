@@ -1,7 +1,8 @@
 {
   "name": "@ai-on/ui",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "Chat UI for Multi-ChatGPT like chatbots.",
+  "license": "GLP-3.0",
   "source": "src/Main.jsx",
   "keywords": [
     "chatGPT",

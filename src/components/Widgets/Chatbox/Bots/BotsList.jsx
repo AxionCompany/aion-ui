@@ -13,7 +13,7 @@ export default function BotsList(props) {
     })
 
     return (
-        <Col className="w-full overflow-y-scroll px-6 items-center justify-center pt-12">
+        <Col className="w-full overflow-y-scroll px-6 items-center py-12">
             {props?.bots?.map((bot, index) => (
                 <BotCard
                     key={index}

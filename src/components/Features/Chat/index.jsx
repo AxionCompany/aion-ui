@@ -3,7 +3,7 @@ import Conversations from '../../Widgets/Conversations/index.jsx';
 import { Row, Col } from '../../Base/Grid/index.jsx';
 import { createSignal, createEffect } from 'solid-js';
 
-const isMobile = window.innerWidth < 768;
+const isMobile = document.getElementById('aion-ui').offsetWidth < 768;
 
 const _availableConfig = [
     {
@@ -23,13 +23,13 @@ const _availableConfig = [
 function Chat(props) {
 
     let messagesList;
-
+    const regenerateLimitText = props.regenerateLimitText || "It looks like I was unable to answer you message. Please try again with a different question."
     const availableConfig = props.availableConfig || _availableConfig;
     const defaultTitle = props.defaultTitle || "Chat";
     const defaultDescription = props.defaultDescription || "Chat";
-    const placeholder = props.placeholder || "Digite sua mensagem aqui...";
-    const botTypingCaption = props.botTypingCaption || "Digitando...";
-    const createConversationLabel = props.createConversationLabel || "Nova conversa";
+    const placeholder = props.placeholder || "Type your message here...";
+    const botTypingCaption = props.botTypingCaption || "Typing...";
+    const createConversationLabel = props.createConversationLabel || "New Thread";
     const allowConversations = props.allowConversations || false;
     const hideHeader = props.hideHeader || false;
     const disableSendMessage = props.disableSendMessage || false;
@@ -37,7 +37,7 @@ function Chat(props) {
     const poweredBy = (typeof props.poweredBy !== 'undefined')
         ? props.poweredBy
         : {
-            label: "Powered by",
+            label: "Powered by ",
             value: "ai-on.co",
             url: "https://ai-on.co"
         }
@@ -268,7 +268,7 @@ function Chat(props) {
             setRegenerateCount(0)
             setShowRegenerate(false)
             const lastBotMessage = conversations()?.[selectedConversation()]?.messages.pop()
-            lastBotMessage.text = props.regenerateLimitText
+            lastBotMessage.text = regenerateLimitText
             lastBotMessage.type = "regenerate"
             updateConversations(lastBotMessage)
         }

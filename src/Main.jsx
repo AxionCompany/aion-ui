@@ -12,10 +12,6 @@ const renderer = (props) => {
   return element
 }
 
-if (typeof window !== 'undefined') {
-  window.renderer = renderer;
-}
-
 const Providers =  { AionProvider, OpenAiProvider, EchoProvider, LoremIpsumProvider }
 
 export { Providers };

@@ -3,7 +3,6 @@ import Button from "../../Base/Button.jsx";
 import { Col } from "../../Base/Grid/index.jsx";
 
 export default function Conversations(props) {
-    console.log(props)
 
     return (
         <Col
