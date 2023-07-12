@@ -9,15 +9,14 @@ Users can easily create integrations through simple props.
 
 
 
-
-
 ## Build with JSX, Integrate with any framework
 
 Built on top of solid.js and web components, this widget can be integrated with any framework, and yet it leverages the power of JSX to provide a seamless developer experience.
 
 ## LT;DR
-Minimal implementation Using OpenAI Provider
-```jsx
+Minimal implementation Using OpenAI Provider.
+
+```html
 <html>
     <script type="module">
 
@@ -26,7 +25,7 @@ Minimal implementation Using OpenAI Provider
         const { OpenAi } = Providers;
         
         if (!renderer) {
-            console.error("RenderAppInstance not found");
+            console.error("renderer not found");
         }
 
         const initialProps = {
@@ -56,7 +55,8 @@ Minimal implementation Using OpenAI Provider
 </html>
 ```
 
-
+Please, note that it is not recommended to use it in production as your api key would be visible.
+For production, we recommend using other Providers, or implementing your own that comunicates with your backend.
 
 ## Features
 
@@ -92,16 +92,15 @@ yarn add @ai-on/ui
 If you imported the module using NPM or Yarn, you can import the module like so:
 
 ```jsx
-import renderer from '@ai-on/ui';
+import renderer , { Providers } from '@ai-on/ui';
 // {... rest of your code here ...}
 ```
 
 If you imported the module using CDN, you can import the module like so, in your `<script>`tag:
 
 ```html
-<script src="https://unpkg.com/@ai-on/ui"  type="module"></script>
-<script type="module">
-    const renderer = window.renderer // renderer is the global variable that contains the module
+<script src="https://unpkg.com/@ai-on/ui"  type="module"> // Import the module here if you are using CDN
+    import renderer, { Providers } from '@ai-on/ui'; // note that it is a ESM (ES Module), so you can to import it inside the script tag
     // {... rest of your code here ...}
 </script>
 ```
@@ -111,18 +110,22 @@ Then, you can pass in the props to the widget like so:
 ```js
 const initialProps = {
     onSendMessage: async ({ message, conversation }, stream) => {
-        // Implement your logic when user sends a message here
+        // Implement your logic when user sends a message here  || or use an existing provider
     },
-    onCreateConversation: () => { 
-        // Implement your logic for when user creates a new conversation here 
+    onCreateConversation: ({conversation}) => { 
+        // Implement your logic for when user creates a new conversation here || or use an existing provider
     },
-    onDeleteConversation: () => { 
-        // Implement your logic for when user deletes a conversation here 
+    onDeleteConversation: ({convvesation}) => { 
+        // Implement your logic for when user deletes a conversation here || or use an existing provider
+    },
+     onInit: ({setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate}) => { 
+        // Implement your logic for when the widget is initialized here. You can use the setters to update the state of the widget upon initialization || or use an existing provider
     },
     placeholder: "Type your message here...",
     regenerateLimitText: "It looks like I were unable to answer you message. Please try again with a different question.",
     botTypingCaption: "Typing...",
     allowConversations: true,
+    hideHeader: false,
     bots: [ // List your available chatbots here
         {
             name: "Bot 1",
