@@ -56,13 +56,6 @@ function Chat(props) {
         if (props.onInit) {
             props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
         }
-        window.location?.search?.split('?')?.[1]?.split('&')?.forEach((param) => {
-            const [key, value] = param.split('=');
-            if (key === 'aion_theme') {
-                // add theme to element via data-theme attribute
-                document.getElementById('aion-ui').setAttribute('data-theme', value);
-            }
-        });
     });
 
     createEffect(() => {
