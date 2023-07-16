@@ -1,5 +1,9 @@
 const openAiProvider = (config) => async ({ message, conversation }, stream) => {
 
+    if (config.dynamicKey) {
+        config.apiKey = (await config.dynamicKey)?.key;
+    };
+
     if (!config.apiKey) throw new Error('No OpenAI API key provided')
 
     // create a list of messages to send to the api
@@ -84,7 +88,7 @@ function concatenateMessages(messages, limit) {
             concatenatedCharacters += currentMessage.content.length;
         } else {
             const remainingCharacters = limit - concatenatedCharacters;
-            concatenatedMessages = [{...currentMessage, content:currentMessage.content.slice(-remainingCharacters)}, ...concatenatedMessages] ;
+            concatenatedMessages = [{ ...currentMessage, content: currentMessage.content.slice(-remainingCharacters) }, ...concatenatedMessages];
             concatenatedCharacters = limit;
             break;
         }
