@@ -25,7 +25,6 @@ export default {
             presets: ['solid'],
         }),
         postcss({
-            // extract: true,
             inject: true,
             plugins: [postcssImport()],
             modules: false,

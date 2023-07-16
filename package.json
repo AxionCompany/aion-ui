@@ -30,11 +30,11 @@
     "bundle:widget": "npx rollup --config rollup.config.mjs"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
-    "@rollup/plugin-alias": "^5.0.0",
     "@rollup/pluginutils": "^5.0.2",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
@@ -42,6 +42,7 @@
     "postcss": "^8.4.24",
     "postcss-import": "^15.1.0",
     "rollup": "^3.25.2",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-postcss": "^4.0.2",
     "solid-devtools": "^0.27.3",
     "tailwindcss": "^3.3.2",
