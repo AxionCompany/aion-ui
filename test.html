@@ -1,35 +1,51 @@
 <html>
-    <script type="module">
+<script type="module">
 
-    import renderer, { Providers } from 'https://unpkg.com/@ai-on/ui';
-        
-        if (!renderer) {
-            console.error("RenderAppInstance not found");
-        }
-
-        const initialProps = {
-            ...Providers['OpenAiProvider']({
-                apiKey: 'your-open-ai-key-here',
-                maxLength: 12000,
-                model: 'gpt-3.5-turbo',
-                stream: true
-            }),
-            maxConversationsWidth:'300px',
-            allowConversations: true, // Allow users to create and delete new threads
-            bots: [{
+    const initialProps = {
+        ...Providers['LoremIpsumProvider']({
+            stream: true
+        }),
+        conversationMaxWidth: '300px',
+        allowConversations: true, // Allow users to create and delete new threads
+        bots: [{
+            name: 'ChatGpt',
+            description: 'ChatGpt',
+            instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
+            suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
+            introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
+        }],
+        conversations: [{
+            title: 'Conversation with ChatGpt',
+            description: 'How to write a file with python',
+            bot: {
                 name: 'ChatGpt',
                 description: 'ChatGpt',
                 instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
                 suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
                 introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
-            }],
-            conversations: []
-        }
+            },
+            messages: []
+        },
+        {
+            title: 'Conversation 2',
+            description: 'How to write a file with python',
+            bot: {
+                name: 'ChatGpt',
+                description: 'ChatGpt',
+                instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
+                suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
+                introMessage: 'Hello, my name is ChatGpt. How can I help you today?',
+            },
+            messages: []
+        }]
+    }
 
-        renderer(initialProps)
+    renderer(initialProps)
 
-    </script>
-    <body>
+</script>
+
+<body>
     <div id="aion-ui" width="100%" height="100%" data-theme="lofi"></div>
-    </body>
+</body>
+
 </html>
