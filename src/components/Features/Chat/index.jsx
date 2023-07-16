@@ -8,10 +8,11 @@ const isMobile = document.getElementById('aion-ui').offsetWidth < 768;
 
 function Chat(props) {
 
+
     const _availableConfig = [
         {
             id: 'new_conversation',
-            name: props.createConversationLabel ||  "New Thread" ,
+            name: props.createConversationLabel || "New Thread",
         },
         {
             id: 'conversation_details',
@@ -19,7 +20,7 @@ function Chat(props) {
         },
         {
             id: 'delete_conversation',
-            name:  props.deleteChatLabel || "Delete Chat",
+            name: props.deleteChatLabel || "Delete Chat",
         },
     ];
 
@@ -52,8 +53,16 @@ function Chat(props) {
     const [showRegenerate, setShowRegenerate] = createSignal(true);
 
     createEffect(() => {
-        if (props.onInit)
+        if (props.onInit) {
             props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
+        }
+        window.location?.search?.split('?')?.[1]?.split('&')?.forEach((param) => {
+            const [key, value] = param.split('=');
+            if (key === 'aion_theme') {
+                // add theme to element via data-theme attribute
+                document.getElementById('aion-ui').setAttribute('data-theme', value);
+            }
+        });
     });
 
     createEffect(() => {
