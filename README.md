@@ -14,16 +14,16 @@ Users can easily create integrations through simple props.
 Built on top of solid.js and web components, this widget can be integrated with any framework, and yet it leverages the power of JSX to provide a seamless developer experience.
 
 ## Demo (various themes)
-[Lofi](https://aion-ui.web.app/?theme=lofi)
-[Dark](https://aion-ui.web.app/?theme=dark)
-[Light](https://aion-ui.web.app/?theme=light)
-[Cupcake](https://aion-ui.web.app/?theme=cupcake)
-[Emerald](https://aion-ui.web.app/?theme=emerald)
-[Synthwave](https://aion-ui.web.app/?theme=synthwave)
-[Bumblebee](https://aion-ui.web.app/?theme=bumblebee)
-[Autumn](https://aion-ui.web.app/?theme=autumn)
+[Lofi](https://aion-ui.web.app/?aion_theme=lofi)
+[Dark](https://aion-ui.web.app/?aion_theme=dark)
+[Light](https://aion-ui.web.app/?aion_theme=light)
+[Cupcake](https://aion-ui.web.app/?aion_theme=cupcake)
+[Emerald](https://aion-ui.web.app/?aion_theme=emerald)
+[Synthwave](https://aion-ui.web.app/?aion_theme=synthwave)
+[Bumblebee](https://aion-ui.web.app/?aion_theme=bumblebee)
+[Autumn](https://aion-ui.web.app/?aion_theme=autumn)
 
-... and many others you can use from [DaisyUI](https://daisyui.com/themes)
+... and many others you can use from [DaisyUI](https://daisyui.com/themes). Just add `?aion_theme=THEME_NAME` query parameter to the url.
 
 ## LT;DR
 Minimal implementation Using OpenAI Provider.
