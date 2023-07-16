@@ -70,15 +70,15 @@ For production, we recommend using other Providers, or implementing your own tha
 
 ## Features
 
--   **Multi-Chatbot**: Easily integrate multiple chatbots into your UI, but you can also use it with a single chatbot
--   **Out-of-the-box Themes**: Choose from a variety of built-in themes from DaisyUI or create your own by cutomizing this widget
--   **Responsive**: This widget is responsive and mobile-friendly.
--   **Customizable**: Customize the look and feel of the chatbot widget with a familiar toolkit for modern web developers: Tailwind CSS and JSX
--   **Small Bundle**: The entire codebase is ~250kb, and ~50kb gzipped. This means that your users will have a fast experience, even on slow connections.
--   **Easy to use**: Simply add the widget to your project and pass in the props. You don't have to worry about managing the state, or even leaking css to the rest of your application. It's all encapsulated in the widget.
--   **Built with Solid.js**: Built with Solid.js, this widget can be integrated with any framework. Plus, you get JSX with no version conflicts with other frameworks.
--   **Bateries Included**: This widget comes with OpenAI Integration provider. If you want to enhance your chatbot capabilities even further with user management, automatic memory management and interacting with your custom knowledge base, AION Provider is also included. You can also easily integrate your own chatbot provider. More built-in providers coming soon.
--   **Open Source**: Under GNU GPL v3.0 license, this widget is open source and free to use. You can also contribute to the project by submitting a pull request. 
+-   **Multi-Chatbot**: :robot: :robot: Easily integrate multiple chatbots into your UI, but you can also use it with a single chatbot
+-   **Out-of-the-box Themes**: :paintbrush:	Choose from a variety of built-in themes from DaisyUI or create your own by cutomizing this widget
+-   **Responsive**: :iphone: This widget is responsive and mobile-friendly.
+-   **Customizable**: :wrench: Customize the look and feel of the chatbot widget with a familiar toolkit for modern web developers: Tailwind CSS and JSX
+-   **Small Bundle**: :ant:	 The entire codebase is ~250kb, and ~50kb gzipped. This means that your users will have a fast experience, even on slow connections.
+-   **Easy to use**: :sparkles:	Simply add the widget to your project and pass in the props. You don't have to worry about managing the state, or even leaking css to the rest of your application. It's all encapsulated in the widget.
+-   **Built with Solid.js**: :computer: Built with Solid.js, this widget can be integrated with any framework. Plus, you get JSX with no version conflicts with other frameworks.
+-   **Bateries Included**: :link: This widget comes with OpenAI Integration provider. If you want to enhance your chatbot capabilities even further with user management, automatic memory management and interacting with your custom knowledge base, AION Provider is also included. You can also easily integrate your own chatbot provider. More built-in providers coming soon.
+-   **Open Source**: :octocat: Under GNU GPL v3.0 license, this widget is open source and free to use. You can also contribute to the project by submitting a pull request. 
 
 ## Installation
 
