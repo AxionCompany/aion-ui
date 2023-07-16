@@ -33,8 +33,6 @@ Minimal implementation Using OpenAI Provider.
     <script type="module">
 
     import renderer, { Providers } from 'https://cdn.jsdelivr.net/npm/@ai-on/ui';
-
-        const { OpenAi } = Providers;
         
         if (!renderer) {
             console.error("renderer not found");
