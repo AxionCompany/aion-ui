@@ -2,8 +2,6 @@
     <script type="module">
 
     import renderer, { Providers } from 'https://unpkg.com/@ai-on/ui';
-
-        const { OpenAi } = Providers;
         
         if (!renderer) {
             console.error("RenderAppInstance not found");
@@ -16,6 +14,7 @@
                 model: 'gpt-3.5-turbo',
                 stream: true
             }),
+            maxConversationsWidth:'300px',
             allowConversations: true, // Allow users to create and delete new threads
             bots: [{
                 name: 'ChatGpt',

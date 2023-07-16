@@ -20,7 +20,7 @@ Minimal implementation Using OpenAI Provider.
 <html>
     <script type="module">
 
-    import renderer, { Providers } from 'https://unpkg.com/@ai-on/ui';
+    import renderer, { Providers } from 'https://cdn.jsdelivr.net/npm/@ai-on/ui';
 
         const { OpenAi } = Providers;
         
@@ -84,7 +84,7 @@ yarn add @ai-on/ui
 
 ### CDN
 ```html
-<script src="https://unpkg.com/@ai-on/ui" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ai-on/ui" type="module"></script>
 ```
 
 ## Usage
@@ -99,7 +99,7 @@ import renderer , { Providers } from '@ai-on/ui';
 If you imported the module using CDN, you can import the module like so, in your `<script>`tag:
 
 ```html
-<script src="https://unpkg.com/@ai-on/ui"  type="module"> // Import the module here if you are using CDN
+<script src="https://cdn.jsdelivr.net/npm/@ai-on/ui"  type="module"> // Import the module here if you are using CDN
     import renderer, { Providers } from '@ai-on/ui'; // note that it is a ESM (ES Module), so you can to import it inside the script tag
     // {... rest of your code here ...}
 </script>

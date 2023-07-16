@@ -5,7 +5,7 @@ import onCreateConversation from './onCreateConversation';
 import onDeleteConversation from './onDeleteConversation';
 
 export default function AionProvider(config) {
-    config.apiUrl = config.apiUrl || 'https://aion-server.azurewebsites.net';
+    config.apiUrl = config.apiUrl || 'https://homolog.ai-on.co/api';
     return {
         onInit: onInit(config),
         onSendMessage: onSendMessage(config),

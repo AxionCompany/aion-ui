@@ -5,22 +5,23 @@ import { createSignal, createEffect } from 'solid-js';
 
 const isMobile = document.getElementById('aion-ui').offsetWidth < 768;
 
-const _availableConfig = [
-    {
-        id: 'new_conversation',
-        name: 'Nova Conversa',
-    },
-    {
-        id: 'conversation_details',
-        name: 'Dados da Conversa',
-    },
-    {
-        id: 'delete_conversation',
-        name: 'Apagar Conversa',
-    },
-];
 
 function Chat(props) {
+
+    const _availableConfig = [
+        {
+            id: 'new_conversation',
+            name: props.createConversationLabel ||  "New Thread" ,
+        },
+        {
+            id: 'conversation_details',
+            name: props.chatDetailsLabel || "Chat Details",
+        },
+        {
+            id: 'delete_conversation',
+            name:  props.deleteChatLabel || "Delete Chat",
+        },
+    ];
 
     let messagesList;
     const regenerateLimitText = props.regenerateLimitText || "It looks like I was unable to answer you message. Please try again with a different question."
