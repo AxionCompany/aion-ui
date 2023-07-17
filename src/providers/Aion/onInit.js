@@ -6,11 +6,12 @@ const aionProvider = (config) => async (setters) => {
     const setBots = setters.setBots;
     const setConversations = setters.setConversations;
 
-    const params = new URLSearchParams({
-        userId: userId,
-        tenant: tenant,
-        subdomain: subdomain,
-    }).toString();
+    const params = {}
+    tenant && (params.tenant = tenant)
+    subdomain && (params.subdomain = subdomain)
+    userId && (params.userId = userId)
+
+    const paramsStr = new URLSearchParams(params).toString();
 
     const options = {
         method: 'GET',
@@ -27,7 +28,7 @@ const aionProvider = (config) => async (setters) => {
 
     // call the openai api
     const response = await fetch(
-        `${config.apiUrl}/features/playground/${path}?${params}`,
+        `${config.apiUrl}/features/playground/${path}?${paramsStr}`,
         options
     );
     // get json response
