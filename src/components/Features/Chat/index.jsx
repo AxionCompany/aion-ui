@@ -3,9 +3,6 @@ import Conversations from '../../Widgets/Conversations/index.jsx';
 import { Row, Col } from '../../Base/Grid/index.jsx';
 import { createSignal, createEffect } from 'solid-js';
 
-const isMobile = document.getElementById('aion-ui').offsetWidth < 768;
-
-
 function Chat(props) {
 
 
@@ -60,6 +57,7 @@ function Chat(props) {
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
     const [isLoading, setIsLoading] = createSignal(false);
+    const [isMobile, setIsMobile] = createSignal(document.getElementById('aion-ui').offsetWidth < 768);
 
     createEffect(() => {
         if (props.onInit) {
@@ -107,6 +105,7 @@ function Chat(props) {
                 behavior: 'smooth'
             }), 1)
         }
+        setIsMobile(document.getElementById('aion-ui').offsetWidth < 768)
     });
 
     const updateConversations = (message, removeBotTyping = false, stream = false) => {
@@ -204,7 +203,7 @@ function Chat(props) {
 
         setConversations(newConversations);
         setSelectedConversation(newConversations.length - 1);
-        isMobile && setShowConversations(false);
+        isMobile() && setShowConversations(false);
 
     }
 
@@ -248,7 +247,7 @@ function Chat(props) {
 
     const handleSelectConversation = (index) => {
         setSelectedConversation(index);
-        isMobile && setShowConversations(false);
+        isMobile() && setShowConversations(false);
     }
 
     const handleDeleteConversation = async () => {
@@ -304,15 +303,15 @@ function Chat(props) {
                         emptyState={emptyState}
                         isLoading={isLoading()}
                         poweredBy={poweredBy}
-                        isMobile={isMobile}
+                        isMobile={isMobile()}
                     />
                 )
             }
             {
-                !(showConversations() && isMobile) &&
+                !(showConversations() && isMobile()) &&
                 < Chatbox
                     disableSendMessage={disableSendMessage}
-                    isMobile={isMobile}
+                    isMobile={isMobile()}
                     ref={messagesList}
                     allowConversations={allowConversations}
                     hideHeader={hideHeader}
