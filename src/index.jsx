@@ -31,35 +31,37 @@ getQueryParams().then((params) => {
       suggestions: ['What is the meaning of life?', 'How to write a file with python?', 'What is the best programming language?'],
       introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
     }],
-    conversations: [{
-      title: 'Conversation with ChatGpt',
-      description: 'How to write a file with python',
-      bot: {
-        name: 'ChatGpt',
-        description: 'ChatGpt',
-        instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
-        suggestions: ['What is the meaning of life?', 'How to write a file with python?', 'What is the best programming language?'],
-        introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
-      },
-      messages: [
-        {
-          "text": "Hello, my name is ChatGpt. How can I help you today?",
-          "author": "bot",
-        }
-      ]
-    },
-    {
-      title: 'Conversation 2',
-      description: 'How to write a file with python',
-      bot: {
-        name: 'ChatGpt',
-        description: 'ChatGpt',
-        instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
-        suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
-        introMessage: 'Hello, my name is ChatGpt. How can I help you today?',
-      },
-      messages: []
-    }]
+    // conversations: [
+      // {
+      //   title: 'Conversation with ChatGpt',
+      //   description: 'How to write a file with python',
+      //   bot: {
+      //     name: 'ChatGpt',
+      //     description: 'ChatGpt',
+      //     instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
+      //     suggestions: ['What is the meaning of life?', 'How to write a file with python?', 'What is the best programming language?'],
+      //     introMessage: 'Hello, my name is ChatGpt. How can I help you today?'
+      //   },
+      //   messages: [
+      //     {
+      //       "text": "Hello, my name is ChatGpt. How can I help you today?",
+      //       "author": "bot",
+      //     }
+      //   ]
+      // },
+      // {
+      //   title: 'Conversation 2',
+      //   description: 'How to write a file with python',
+      //   bot: {
+      //     name: 'ChatGpt',
+      //     description: 'ChatGpt',
+      //     instructions: 'Your are a helpful assistant', // Instructions to be passed as "system prompt",
+      //     suggestions: ['What is the meaning of life?', 'What is the best programming language?', 'What is the best programming language?'],
+      //     introMessage: 'Hello, my name is ChatGpt. How can I help you today?',
+      //   },
+      //   messages: []
+      // }
+    // ]
   }
 
   renderer(initialProps)

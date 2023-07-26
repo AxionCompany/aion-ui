@@ -7,12 +7,12 @@ import { AionProvider, OpenAiProvider, EchoProvider, LoremIpsumProvider } from '
 const renderer = (props) => {
 
   const element = document.getElementById('aion-ui');
-
+  element.innerHTML = '';
   render(() => <App {...props} />, element);
   return element
 }
 
-const Providers =  { AionProvider, OpenAiProvider, EchoProvider, LoremIpsumProvider }
+const Providers = { AionProvider, OpenAiProvider, EchoProvider, LoremIpsumProvider }
 
 export { Providers };
 

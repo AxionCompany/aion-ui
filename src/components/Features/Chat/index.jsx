@@ -36,6 +36,14 @@ function Chat(props) {
     const hideHeader = props.hideHeader || false;
     const disableSendMessage = props.disableSendMessage || false;
     const conversationMaxWidth = props.conversationMaxWidth || "400px";
+    const emptyState = props.emptyState || {
+        title: "Nothing to see here.",
+        description: "Please [select a conversation](#) to start chatting.",
+    }
+    const loadingState = props.loadingState || {
+        title: "Loading...",
+        description: "Please wait while we load [your conversations](#).",
+    }
     const poweredBy = (typeof props.poweredBy !== 'undefined')
         ? props.poweredBy
         : {
@@ -51,10 +59,13 @@ function Chat(props) {
     const [showDetails, setShowDetails] = createSignal(false);
     const [regenerateCount, setRegenerateCount] = createSignal(0);
     const [showRegenerate, setShowRegenerate] = createSignal(true);
+    const [isLoading, setIsLoading] = createSignal(false);
 
     createEffect(() => {
         if (props.onInit) {
+            setIsLoading(true)
             props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
+                .then(() => { setIsLoading(false) })
         }
     });
 
@@ -289,6 +300,9 @@ function Chat(props) {
                         selectedConversation={selectedConversation()}
                         onCreateConversation={handleCreateConversation}
                         createConversationLabel={createConversationLabel}
+                        loadingState={loadingState}
+                        emptyState={emptyState}
+                        isLoading={isLoading()}
                         poweredBy={poweredBy}
                         isMobile={isMobile}
                     />
@@ -313,6 +327,9 @@ function Chat(props) {
                     placeholder={placeholder}
                     onSendMessage={handleSendMessage}
                     onDeleteConversation={handleDeleteConversation}
+                    loadingState={loadingState}
+                    emptyState={emptyState}
+                    isLoading={isLoading()}
                 />
             }
         </Row>
