@@ -266,6 +266,23 @@ function Chat(props) {
         }
     }
 
+    const handleUpdateConversation = async (data) => {
+        console.log(props)
+        if (props.onUpdateConversation) {
+            console.log('Ate aqui')
+            const updated = await props.onUpdateConversation({ conversation: conversations()[selectedConversation()], data});
+            if (!updated) {
+                window.alert('Error updating this conversation')
+                return;
+            }
+            if (props.onInit) {
+                setIsLoading(true)
+                props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
+                    .then(() => { setIsLoading(false) })
+            }
+        }
+    }
+
     return (
         <Row className="h-full overflow-auto">
             {
@@ -298,6 +315,7 @@ function Chat(props) {
                     placeholder={placeholder}
                     onSendMessage={handleSendMessage}
                     onDeleteConversation={handleDeleteConversation}
+                    onUpdateConversation={handleUpdateConversation}
                 />
             }
         </Row>
