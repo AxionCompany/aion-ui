@@ -5,6 +5,9 @@ const aionProvider = (config) => async (setters) => {
     type = type || 'public'  // can also be 'private-playground'
     const setBots = setters.setBots;
     const setConversations = setters.setConversations;
+    const setIsLoading = setters.setIsLoading;
+
+    setIsLoading(true);
 
     const params = {}
     tenant && (params.tenant = tenant)
@@ -47,7 +50,8 @@ const aionProvider = (config) => async (setters) => {
     })
     setConversations(conversations || []);
 
-
+    setIsLoading(false);
+    
     return json;
 }
 

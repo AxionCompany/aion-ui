@@ -61,9 +61,7 @@ function Chat(props) {
 
     createEffect(() => {
         if (props.onInit) {
-            setIsLoading(true)
-            props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate })
-                .then(() => { setIsLoading(false) })
+            props.onInit({ setSelectedConversation, setConversations, setBots, setShowConversations, setShowDetails, setShowRegenerate, setIsLoading })
         }
     });
 
@@ -270,6 +268,26 @@ function Chat(props) {
 
     }
 
+    const handleUpdateConversation = async (updatedFields) => {
+        const newConversations = [...conversations()];
+
+        newConversations[selectedConversation()] = {
+            ...newConversations[selectedConversation()],
+            ...updatedFields,
+            updatedAt: new Date(),
+        }
+        
+        setConversations(newConversations);
+
+        if (props.onUpdateConversation) {
+            const updated = await props.onUpdateConversation({ conversation:  newConversations[selectedConversation()], updatedFields});
+            if (!updated) {
+                window.alert('Error updating this conversation')
+                return;
+            }
+        }
+    }
+
     const handleRegenerateAnswer = () => {
         if (regenerateCount() < 3) {
             setRegenerateCount(regenerateCount() + 1)
@@ -326,6 +344,7 @@ function Chat(props) {
                     placeholder={placeholder}
                     onSendMessage={handleSendMessage}
                     onDeleteConversation={handleDeleteConversation}
+                    onUpdateConversation={handleUpdateConversation}
                     loadingState={loadingState}
                     emptyState={emptyState}
                     isLoading={isLoading()}

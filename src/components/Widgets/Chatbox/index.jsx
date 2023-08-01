@@ -31,7 +31,7 @@ export default function Chatbox(props) {
                 ) : (
                     <Col className="lg:px-12 items-start justify-start overflow-auto h-full">
                         {props.showDetails
-                            ? <ConversationDetails conversation={props.conversation} />
+                            ? <ConversationDetails conversation={props.conversation} onUpdateConversation={props.onUpdateConversation}/>
                             : props.conversation?.bot || props?.conversation?.messages?.length
                                 ? <MessagesList
                                     onSendMessage={props.onSendMessage}
