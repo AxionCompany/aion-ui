@@ -276,11 +276,14 @@ function Chat(props) {
             ...updatedFields,
             updatedAt: new Date(),
         }
-        
+
         setConversations(newConversations);
 
         if (props.onUpdateConversation) {
-            const updated = await props.onUpdateConversation({ conversation:  newConversations[selectedConversation()], updatedFields});
+            const updated = await props.onUpdateConversation({
+                conversation: newConversations[selectedConversation()],
+                data: updatedFields
+            });
             if (!updated) {
                 window.alert('Error updating this conversation')
                 return;

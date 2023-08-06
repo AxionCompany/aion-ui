@@ -5,7 +5,7 @@ export default function TextArea(props) {
         <label className="label">
           <span className="label-text">{props.conversationDescriptionLabel || "Description"}</span>
         </label>
-        <textarea className="textarea textarea-bordered h-24" placeholder={props.placeholder}></textarea>
+        <textarea className="textarea textarea-bordered h-24" placeholder={props.placeholder || "Type your short description for this conversation"}></textarea>
       </div>
     )
 }

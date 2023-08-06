@@ -1,5 +1,5 @@
 const aionProvider = (config) => async ({ conversation, data }) => {
-    console.log("cheguei")
+
     const { accessToken, tenant } = config;
 
     if (!accessToken) return false;
