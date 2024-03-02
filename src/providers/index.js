@@ -7,5 +7,5 @@ export {
     OpenAiProvider,
     AionProvider,
     LoremIpsumProvider,
-    EchoProvider
+    EchoProvider,
 }

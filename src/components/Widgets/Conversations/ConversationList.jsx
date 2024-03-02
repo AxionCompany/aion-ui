@@ -3,7 +3,7 @@ import ConversationCard from "./ConversationCard.jsx";
 import RenderMarkdown from "../../Base/RenderMarkdown.jsx";
 
 export default function ConversationList(props) {
-    console.log(Object.keys(props?.conversations).length)
+
     return (
         <Col className="overflow-y-scroll md:px-6 overflow-x-hidden">
 
