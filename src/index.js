@@ -40,7 +40,7 @@ getQueryParams().then((params) => {
         (props?.conversation?.bot?.id
           ? `id: ${props.conversation?.bot?.id} \n`
           : "")
-    }
+    },
 
     conversations: [
       {
